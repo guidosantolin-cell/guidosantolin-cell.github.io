@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 .private-inbox/
+package-lock.json
