@@ -1,0 +1,41 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#eef2ff" />
+
+  <g font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#4338ca">
+    <text x="180" y="90" text-anchor="middle">MLB</text>
+    <text x="400" y="90" text-anchor="middle">MLM</text>
+    <text x="620" y="90" text-anchor="middle">MLA</text>
+  </g>
+
+  <g>
+    <!-- row 1: unified -->
+    <rect x="80" y="120" width="200" height="56" rx="10" fill="#c7d2fe" />
+    <rect x="300" y="120" width="200" height="56" rx="10" fill="#c7d2fe" />
+    <rect x="520" y="120" width="200" height="56" rx="10" fill="#c7d2fe" />
+
+    <!-- row 2: unified -->
+    <rect x="80" y="192" width="200" height="56" rx="10" fill="#c7d2fe" />
+    <rect x="300" y="192" width="200" height="56" rx="10" fill="#c7d2fe" />
+    <rect x="520" y="192" width="200" height="56" rx="10" fill="#c7d2fe" />
+
+    <!-- row 3: one site not applicable -->
+    <rect x="80" y="264" width="200" height="56" rx="10" fill="#c7d2fe" />
+    <rect x="300" y="264" width="200" height="56" rx="10" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="6 6" />
+    <rect x="520" y="264" width="200" height="56" rx="10" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="6 6" />
+
+    <!-- row 4: unified, highlighted -->
+    <rect x="80" y="336" width="200" height="56" rx="10" fill="#818cf8" />
+    <rect x="300" y="336" width="200" height="56" rx="10" fill="#818cf8" />
+    <rect x="520" y="336" width="200" height="56" rx="10" fill="#818cf8" />
+  </g>
+
+  <!-- connecting line across the highlighted unified row -->
+  <path d="M 180 364 H 620" stroke="#4338ca" stroke-width="3" stroke-linecap="round" />
+  <circle cx="180" cy="364" r="7" fill="#4338ca" />
+  <circle cx="400" cy="364" r="7" fill="#4338ca" />
+  <circle cx="620" cy="364" r="7" fill="#4338ca" />
+
+  <g font-family="system-ui, sans-serif" font-size="16" fill="#3730a3" font-weight="600">
+    <text x="400" y="440" text-anchor="middle">Una matriz, un mismo ID por caso de uso</text>
+  </g>
+</svg>
