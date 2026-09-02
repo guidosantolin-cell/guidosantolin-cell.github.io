@@ -9,14 +9,14 @@ const script: Turn[] = [
   { from: 'user', text: 'Quiero una tarjeta de crédito' },
   {
     from: 'maxwell',
-    text: '¡Hola, Guido! Tenés una tarjeta esperándote con $ 1.000.000 de límite y beneficios exclusivos:\n\n• 100% gratis: no pagás mantenimiento, renovación ni envío\n\n• Hasta {n} cuotas sin interés en Mercado Libre\n\n¿Avanzamos con el pedido de la tarjeta?',
+    text: '¡Hola, Guido! Tenés una tarjeta esperándote con $ 1.000.000 de límite y beneficios exclusivos:\n\n• 100% gratis: no pagás mantenimiento, renovación ni envío\n\n• Hasta 12 cuotas sin interés en Mercado Libre\n\n¿Avanzamos con el pedido de la tarjeta?',
   },
   { from: 'user', text: 'Sí, dale' },
   {
     from: 'maxwell',
     text: '¡Bien! La dirección donde enviaremos la tarjeta física es Zeballos 2453, Beccar, Prov. de Buenos Aires.\n\n¿Te parece bien?',
   },
-  { from: 'user', text: 'No, está bien' },
+  { from: 'user', text: 'Sí, está bien' },
   { from: 'widget' },
 ]
 
