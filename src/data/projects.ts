@@ -137,6 +137,181 @@ const PLACEHOLDER = '[Completar con tu contenido]'
 
 export const projects: CaseStudy[] = [
   {
+    slug: 'flujo-adqui-tc-en-maxwell',
+    title: 'Flujo Adqui TC en Maxwell',
+    product: 'Tarjeta de Crédito Mercado Pago',
+    countries: '🇧🇷 Brasil',
+    period: PLACEHOLDER,
+    tools: ['Figma'],
+    accent: 'indigo',
+    coverImage: '/case-studies/maxwell/storytelling1.png',
+    team: [
+      {
+        role: 'UX',
+        name: 'Guido Santolin (UXW) · Tania Mendoça (UXD) · Juliana Toledo (PL)',
+      },
+      { role: 'Producto', name: 'Elisa Maria Anadon' },
+    ],
+    challenge: {
+      intro: [
+        'Pain points identificados en usuarios de Maxwell (el asistente conversacional de atención):',
+      ],
+      content: [
+        'Actuales: "No tengo tiempo para completar todo un proceso de adquisición de una tarjeta de crédito."',
+        'Con la experiencia: "No entiendo si es una tarjeta para usar solo en Mercado Libre o en cualquier lado."',
+      ],
+      solution:
+        'Que la persona usuaria pueda adquirir la Tarjeta de Crédito Mercado Pago directamente desde el chat de Maxwell, sin salir de la conversación.',
+    },
+    objectivesKpis: {
+      negocio: 'Reducir contact rate por solicitudes de tarjeta. Aumentar la emisión de tarjetas.',
+      experiencia:
+        'Que la persona usuaria adquiera la Tarjeta de Crédito Mercado Pago directamente desde Maxwell.',
+      kpis: [
+        'Usuarios que adquieren la Tarjeta de Crédito Mercado Pago desde Maxwell.',
+        'Reducción de Costos de Atención (USD/mes).',
+        'Reducción de Contact Rate.',
+      ],
+    },
+    benchmark: {
+      intro:
+        'Relevamos referencias de bots conversacionales (bancos y agencias de viaje) y de bots con widgets UI para definir cómo presentar la oferta de la tarjeta dentro del chat de Maxwell, además de un benchmark visual de cards, modales y microinteracciones.',
+      images: [
+        { src: '/case-studies/maxwell/benchmark2.png', caption: 'Benchmarking BOTs (conversacional): Banco Macro, BBVA, Streebo, Despegar' },
+        { src: '/case-studies/maxwell/benchmark1.png', caption: 'Benchmarking BOTs (UI widgets): decolar (SofIA), Layla, mindtrip' },
+        { src: '/case-studies/maxwell/benchmark3.png', caption: 'Benchmarking visual: cards, modales, onboarding y microinteracciones' },
+      ],
+    },
+    contentExploration: [
+      {
+        title: 'Storytelling',
+        body: 'Estudio de contenido para definir cómo Maxwell debía comunicar la oferta y la solicitud de la tarjeta según el estado del usuario. Scope detallado:',
+        video: {
+          src: '/case-studies/maxwell/storytelling1-hires.png',
+          orientation: 'vertical',
+        },
+        subsections: [
+          {
+            title: 'Usuarios prescored',
+            items: [
+              'Aquellos que ingresan a Maxwell y proactivamente piden la Tarjeta de Crédito Mercado Pago.',
+              'Aquellos que por algún otro motivo ingresan a Maxwell y el agente les ofrece la tarjeta.',
+            ],
+          },
+          {
+            title: 'Usuarios Scoring Real Time',
+            items: [
+              'Aquellos que ingresan a Maxwell, proactivamente piden la Tarjeta de Crédito Mercado Pago y, tras analizar su historial crediticio, son aprobados a solicitarla.',
+              'Aquellos que ingresan a Maxwell por otro asunto, el agente analiza su historial crediticio y, tras concluir que son buenos perfiles, les ofrece la TC.',
+            ],
+          },
+          {
+            title: 'Primer borrador de la historia',
+            body:
+              'Tenés una Tarjeta de Crédito Mercado Pago preaprobada. Para pedirla, necesitamos que elijas la fecha de vencimiento que mejor se te acomode y nos indiques dónde quieres recibir la tarjeta física. Por favor, ten en cuenta aceptar los TyC para generar el pedido con éxito.\n\nTu tarjeta tiene un límite de $3.000.000 y ofrece cuotas sin interés en Mercado Libre y en comercios con QR de Mercado Pago desde $50.000. Además, si sos Meli+, te ofrece cashback de hasta {x}%.',
+          },
+        ],
+      },
+    ],
+    beforeAfter: [],
+  },
+  {
+    slug: 'usuarios-con-tc-en-otra-cuenta',
+    title: 'Usuarios con TC en otra cuenta',
+    product: 'Tarjeta de Crédito Mercado Pago',
+    countries: '🇦🇷 Argentina | 🇧🇷 Brasil | 🇲🇽 México',
+    period: PLACEHOLDER,
+    tools: ['Figma'],
+    accent: 'yellow',
+    coverImage: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
+    challenge: {
+      intro: [
+        'Solo en Argentina, hay más de 8.500 errores por trimestre en el flujo de pago (código CCC07). Este número es solo la punta del iceberg — no contabiliza fallas en Engagement, Statements o Collection.',
+        'Nota técnica: el backend ya sabe si alguna de las cuentas vinculadas tiene o tuvo TC. La infraestructura existe (User Accounts Service + lógica de TC Adquisición) — solo falta anticipar dónde y cuándo se invoca esa validación.',
+        'Target: usuarios de Mercado Pago que poseen más de una cuenta vinculada al mismo documento de identidad (CPF, DNI, CURP) y que intentan acceder a funcionalidades de tarjeta de crédito (adquisición, pago, resumen, engagement) desde una cuenta donde la tarjeta no está activa. Sites: Argentina (MLA), Brasil (MLB), México (MLM); Chile (MLC) fuera de alcance por ahora. Impacta también a agentes de CX que usan Maxwell sin contexto sobre el error.',
+      ],
+      content: [
+        'Los deep links de cobro fallan cuando se abren en la cuenta secundaria (Collection).',
+        'Los agentes de Maxwell no pueden identificar la tarjeta en cuentas vinculadas, aumentando el tiempo de atención (AHT).',
+        'Los módulos de Statements (cambio de vencimiento, liquidación de saldo) también se ven afectados.',
+        'Los usuarios abandonan el flujo o recurren al soporte, generando churn y costo operativo.',
+      ],
+      solution:
+        'Mover la validación de multicuenta al inicio del funnel. Flujo técnico: (1) la Person Identification API devuelve los cust_ids vinculados al documento, (2) el backend de TC verifica el estado en cada cust_id. La infraestructura ya existe — el trabajo es anticipar el momento del chequeo y mostrar la pantalla de freno adecuada.',
+    },
+    objectivesKpis: {
+      negocio:
+        'Reducir los 8.500+ errores trimestrales en el flujo de pago (AR) y las fallas no medidas en Engagement, Collection, Statements y Adquisición. Disminuir los llamados al soporte (Maxwell y CX) relacionados a multicuenta, reduciendo costo operativo y AHT.',
+      kpis: [
+        'Reducción de errores CCC07 en MLA (monitoreado vía dashboard de Looker).',
+        'Reducción de contactos a Maxwell y escalaciones a CX por motivo de multicuenta.',
+        'Tasa de redireccionamiento exitoso (el usuario llega a la cuenta correcta).',
+        'Reducción de churn en el funnel de adquisición de TC.',
+      ],
+    },
+    scope: {
+      intro:
+        'Todo el diseño de UX centralizado en el equipo de Adquisición. Squads involucrados: UX Adqui, Front Adqui, Back Adqui, Front Collections, Front Engagement.',
+      groups: [
+        {
+          title: 'Dentro de alcance (Q2)',
+          items: [
+            'Detección anticipada en Adquisición (mover la validación al inicio del funnel).',
+            'Redirección desde Engagement hacia el freno correspondiente según el estado de la TC.',
+            'Diseño de experiencia para UC 1 (cancelada) + UC 2 (activa/otro estado).',
+            'Desarrollo y delivery — Sites: MLB, MLM, MLA.',
+            'Lógica para embeber en Maxwell.',
+          ],
+        },
+        {
+          title: 'Fuera de alcance (Q2)',
+          items: [
+            'MLC — User Accounts API no disponible (previsto para fin de Q2).',
+            'Usuarios no-KYC — no es posible invocar User Accounts.',
+            'Otros casos edge a definir.',
+          ],
+        },
+        {
+          title: 'Impactos',
+          items: [
+            'Adquisición: validación proactiva en el inicio del funnel + pantalla de freno por UC.',
+            'Engagement: capability en los middles para identificar TC y redirigir al freno de Adquisición.',
+            'Collection: validación cross-account para deep links de cobro/resumen.',
+            'Statements: cambio de vencimiento, liquidación de saldo — módulos afectados.',
+            'Maxwell: refinar Startup Tool + scripts de acción por escenario.',
+          ],
+        },
+      ],
+    },
+    mapReveal: {
+      image: '/case-studies/users-tc-otra-cuenta/mapa-entendimiento.png',
+    },
+    customSections: [
+      {
+        title: 'Exploramos propuestas',
+        body:
+          'Para cada caso de uso (TC cancelada, TC vigente, oferta vigente) explorámos 2 versiones de copy para la pantalla de freno. Acuerdos post weekly:',
+        items: [
+          'Caso oferta de TC en otra cuenta: por limitaciones técnicas, no podemos traer el mail al cuerpo del feedback screen.',
+          'Caso TC vigente en otra cuenta: trabajar 2 propuestas (una con mail y otra sin mail), ya que con la nueva app las cuentas van a ser cuentas validadas.',
+          'CTA: en esta primera instancia, que no sea inteligente — que el usuario decida si quiere cerrar la cuenta e ingresar nuevamente con otro mail.',
+          'KYC: no sumar referencia de KYC al feedback screen.',
+        ],
+        image: '/case-studies/users-tc-otra-cuenta/propuestas.png',
+      },
+    ],
+    contentExploration: [],
+    beforeAfter: [],
+    outcome:
+      'Definimos el flujograma final para los 3 casos de uso (TC cancelada, TC vigente, oferta vigente), con sus pantallas de freno para Android e iOS, consistentes entre MLB, MLM y MLA, más el comportamiento del CTA.',
+    outcomeVideo: {
+      src: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
+      orientation: 'horizontal',
+    },
+    handoffLink:
+      'https://www.figma.com/design/MK22lfxMxNb03N0Bcc7Lqx/%F0%9F%87%A6%F0%9F%87%B7%F0%9F%87%A7%F0%9F%87%B7%F0%9F%87%B2%F0%9F%87%BD-Usuarios-con-TC-en-otra-cuenta?node-id=288-51539&m=dev',
+  },
+  {
     slug: 'tarjeta-prepago-mla',
     title: 'Flujo de Adquisición Tarjeta Prepaga MLA',
     product: 'Tarjeta Prepaga Mercado Pago',
@@ -480,180 +655,5 @@ export const projects: CaseStudy[] = [
     movementsExplorer: true,
     sheetLink:
       'https://docs.google.com/spreadsheets/d/1NZFSBjhqE0y5HCFvLCHIFGETMczFufOoLE7MDhp8S48/edit?pli=1&gid=825420724#gid=825420724',
-  },
-  {
-    slug: 'usuarios-con-tc-en-otra-cuenta',
-    title: 'Usuarios con TC en otra cuenta',
-    product: 'Tarjeta de Crédito Mercado Pago',
-    countries: '🇦🇷 Argentina | 🇧🇷 Brasil | 🇲🇽 México',
-    period: PLACEHOLDER,
-    tools: ['Figma'],
-    accent: 'yellow',
-    coverImage: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
-    challenge: {
-      intro: [
-        'Solo en Argentina, hay más de 8.500 errores por trimestre en el flujo de pago (código CCC07). Este número es solo la punta del iceberg — no contabiliza fallas en Engagement, Statements o Collection.',
-        'Nota técnica: el backend ya sabe si alguna de las cuentas vinculadas tiene o tuvo TC. La infraestructura existe (User Accounts Service + lógica de TC Adquisición) — solo falta anticipar dónde y cuándo se invoca esa validación.',
-        'Target: usuarios de Mercado Pago que poseen más de una cuenta vinculada al mismo documento de identidad (CPF, DNI, CURP) y que intentan acceder a funcionalidades de tarjeta de crédito (adquisición, pago, resumen, engagement) desde una cuenta donde la tarjeta no está activa. Sites: Argentina (MLA), Brasil (MLB), México (MLM); Chile (MLC) fuera de alcance por ahora. Impacta también a agentes de CX que usan Maxwell sin contexto sobre el error.',
-      ],
-      content: [
-        'Los deep links de cobro fallan cuando se abren en la cuenta secundaria (Collection).',
-        'Los agentes de Maxwell no pueden identificar la tarjeta en cuentas vinculadas, aumentando el tiempo de atención (AHT).',
-        'Los módulos de Statements (cambio de vencimiento, liquidación de saldo) también se ven afectados.',
-        'Los usuarios abandonan el flujo o recurren al soporte, generando churn y costo operativo.',
-      ],
-      solution:
-        'Mover la validación de multicuenta al inicio del funnel. Flujo técnico: (1) la Person Identification API devuelve los cust_ids vinculados al documento, (2) el backend de TC verifica el estado en cada cust_id. La infraestructura ya existe — el trabajo es anticipar el momento del chequeo y mostrar la pantalla de freno adecuada.',
-    },
-    objectivesKpis: {
-      negocio:
-        'Reducir los 8.500+ errores trimestrales en el flujo de pago (AR) y las fallas no medidas en Engagement, Collection, Statements y Adquisición. Disminuir los llamados al soporte (Maxwell y CX) relacionados a multicuenta, reduciendo costo operativo y AHT.',
-      kpis: [
-        'Reducción de errores CCC07 en MLA (monitoreado vía dashboard de Looker).',
-        'Reducción de contactos a Maxwell y escalaciones a CX por motivo de multicuenta.',
-        'Tasa de redireccionamiento exitoso (el usuario llega a la cuenta correcta).',
-        'Reducción de churn en el funnel de adquisición de TC.',
-      ],
-    },
-    scope: {
-      intro:
-        'Todo el diseño de UX centralizado en el equipo de Adquisición. Squads involucrados: UX Adqui, Front Adqui, Back Adqui, Front Collections, Front Engagement.',
-      groups: [
-        {
-          title: 'Dentro de alcance (Q2)',
-          items: [
-            'Detección anticipada en Adquisición (mover la validación al inicio del funnel).',
-            'Redirección desde Engagement hacia el freno correspondiente según el estado de la TC.',
-            'Diseño de experiencia para UC 1 (cancelada) + UC 2 (activa/otro estado).',
-            'Desarrollo y delivery — Sites: MLB, MLM, MLA.',
-            'Lógica para embeber en Maxwell.',
-          ],
-        },
-        {
-          title: 'Fuera de alcance (Q2)',
-          items: [
-            'MLC — User Accounts API no disponible (previsto para fin de Q2).',
-            'Usuarios no-KYC — no es posible invocar User Accounts.',
-            'Otros casos edge a definir.',
-          ],
-        },
-        {
-          title: 'Impactos',
-          items: [
-            'Adquisición: validación proactiva en el inicio del funnel + pantalla de freno por UC.',
-            'Engagement: capability en los middles para identificar TC y redirigir al freno de Adquisición.',
-            'Collection: validación cross-account para deep links de cobro/resumen.',
-            'Statements: cambio de vencimiento, liquidación de saldo — módulos afectados.',
-            'Maxwell: refinar Startup Tool + scripts de acción por escenario.',
-          ],
-        },
-      ],
-    },
-    mapReveal: {
-      image: '/case-studies/users-tc-otra-cuenta/mapa-entendimiento.png',
-    },
-    customSections: [
-      {
-        title: 'Exploramos propuestas',
-        body:
-          'Para cada caso de uso (TC cancelada, TC vigente, oferta vigente) explorámos 2 versiones de copy para la pantalla de freno. Acuerdos post weekly:',
-        items: [
-          'Caso oferta de TC en otra cuenta: por limitaciones técnicas, no podemos traer el mail al cuerpo del feedback screen.',
-          'Caso TC vigente en otra cuenta: trabajar 2 propuestas (una con mail y otra sin mail), ya que con la nueva app las cuentas van a ser cuentas validadas.',
-          'CTA: en esta primera instancia, que no sea inteligente — que el usuario decida si quiere cerrar la cuenta e ingresar nuevamente con otro mail.',
-          'KYC: no sumar referencia de KYC al feedback screen.',
-        ],
-        image: '/case-studies/users-tc-otra-cuenta/propuestas.png',
-      },
-    ],
-    contentExploration: [],
-    beforeAfter: [],
-    outcome:
-      'Definimos el flujograma final para los 3 casos de uso (TC cancelada, TC vigente, oferta vigente), con sus pantallas de freno para Android e iOS, consistentes entre MLB, MLM y MLA, más el comportamiento del CTA.',
-    outcomeVideo: {
-      src: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
-      orientation: 'horizontal',
-    },
-    handoffLink:
-      'https://www.figma.com/design/MK22lfxMxNb03N0Bcc7Lqx/%F0%9F%87%A6%F0%9F%87%B7%F0%9F%87%A7%F0%9F%87%B7%F0%9F%87%B2%F0%9F%87%BD-Usuarios-con-TC-en-otra-cuenta?node-id=288-51539&m=dev',
-  },
-  {
-    slug: 'flujo-adqui-tc-en-maxwell',
-    title: 'Flujo Adqui TC en Maxwell',
-    product: 'Tarjeta de Crédito Mercado Pago',
-    countries: '🇧🇷 Brasil',
-    period: PLACEHOLDER,
-    tools: ['Figma'],
-    accent: 'indigo',
-    coverImage: '/case-studies/maxwell/storytelling1.png',
-    team: [
-      {
-        role: 'UX',
-        name: 'Guido Santolin (UXW) · Tania Mendoça (UXD) · Juliana Toledo (PL)',
-      },
-      { role: 'Producto', name: 'Elisa Maria Anadon' },
-    ],
-    challenge: {
-      intro: [
-        'Pain points identificados en usuarios de Maxwell (el asistente conversacional de atención):',
-      ],
-      content: [
-        'Actuales: "No tengo tiempo para completar todo un proceso de adquisición de una tarjeta de crédito."',
-        'Con la experiencia: "No entiendo si es una tarjeta para usar solo en Mercado Libre o en cualquier lado."',
-      ],
-      solution:
-        'Que la persona usuaria pueda adquirir la Tarjeta de Crédito Mercado Pago directamente desde el chat de Maxwell, sin salir de la conversación.',
-    },
-    objectivesKpis: {
-      negocio: 'Reducir contact rate por solicitudes de tarjeta. Aumentar la emisión de tarjetas.',
-      experiencia:
-        'Que la persona usuaria adquiera la Tarjeta de Crédito Mercado Pago directamente desde Maxwell.',
-      kpis: [
-        'Usuarios que adquieren la Tarjeta de Crédito Mercado Pago desde Maxwell.',
-        'Reducción de Costos de Atención (USD/mes).',
-        'Reducción de Contact Rate.',
-      ],
-    },
-    benchmark: {
-      intro:
-        'Relevamos referencias de bots conversacionales (bancos y agencias de viaje) y de bots con widgets UI para definir cómo presentar la oferta de la tarjeta dentro del chat de Maxwell, además de un benchmark visual de cards, modales y microinteracciones.',
-      images: [
-        { src: '/case-studies/maxwell/benchmark2.png', caption: 'Benchmarking BOTs (conversacional): Banco Macro, BBVA, Streebo, Despegar' },
-        { src: '/case-studies/maxwell/benchmark1.png', caption: 'Benchmarking BOTs (UI widgets): decolar (SofIA), Layla, mindtrip' },
-        { src: '/case-studies/maxwell/benchmark3.png', caption: 'Benchmarking visual: cards, modales, onboarding y microinteracciones' },
-      ],
-    },
-    contentExploration: [
-      {
-        title: 'Storytelling',
-        body: 'Estudio de contenido para definir cómo Maxwell debía comunicar la oferta y la solicitud de la tarjeta según el estado del usuario. Scope detallado:',
-        video: {
-          src: '/case-studies/maxwell/storytelling1-hires.png',
-          orientation: 'vertical',
-        },
-        subsections: [
-          {
-            title: 'Usuarios prescored',
-            items: [
-              'Aquellos que ingresan a Maxwell y proactivamente piden la Tarjeta de Crédito Mercado Pago.',
-              'Aquellos que por algún otro motivo ingresan a Maxwell y el agente les ofrece la tarjeta.',
-            ],
-          },
-          {
-            title: 'Usuarios Scoring Real Time',
-            items: [
-              'Aquellos que ingresan a Maxwell, proactivamente piden la Tarjeta de Crédito Mercado Pago y, tras analizar su historial crediticio, son aprobados a solicitarla.',
-              'Aquellos que ingresan a Maxwell por otro asunto, el agente analiza su historial crediticio y, tras concluir que son buenos perfiles, les ofrece la TC.',
-            ],
-          },
-          {
-            title: 'Primer borrador de la historia',
-            body:
-              'Tenés una Tarjeta de Crédito Mercado Pago preaprobada. Para pedirla, necesitamos que elijas la fecha de vencimiento que mejor se te acomode y nos indiques dónde quieres recibir la tarjeta física. Por favor, ten en cuenta aceptar los TyC para generar el pedido con éxito.\n\nTu tarjeta tiene un límite de $3.000.000 y ofrece cuotas sin interés en Mercado Libre y en comercios con QR de Mercado Pago desde $50.000. Además, si sos Meli+, te ofrece cashback de hasta {x}%.',
-          },
-        ],
-      },
-    ],
-    beforeAfter: [],
   },
 ]
