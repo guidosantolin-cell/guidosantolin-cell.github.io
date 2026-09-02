@@ -454,6 +454,38 @@ export function CaseStudy() {
         </div>
       ))}
 
+      {project.prototypes && (
+        <div className="mt-16">
+          <h2 className="text-2xl font-semibold text-neutral-900">Prototipos</h2>
+          <div className="mt-6 space-y-10">
+            {project.prototypes.map((proto) => (
+              <div key={proto.title}>
+                <p className="font-medium text-neutral-900">{proto.title}</p>
+                {proto.description && (
+                  <p className="mt-1 text-neutral-600">{proto.description}</p>
+                )}
+                {proto.video && (
+                  <div className="mt-3">
+                    <Filmstrip
+                      src={proto.video.src}
+                      alt={proto.title}
+                      orientation={proto.video.orientation}
+                    />
+                  </div>
+                )}
+                {proto.image && (
+                  <img
+                    src={proto.image}
+                    alt={proto.title}
+                    className="mt-3 w-full rounded-xl border border-neutral-100"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {project.outcome && (
         <div className="mt-16">
           <h2 className="text-2xl font-semibold text-neutral-900">Resultado</h2>

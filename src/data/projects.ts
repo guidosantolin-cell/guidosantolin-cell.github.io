@@ -94,6 +94,13 @@ export type Opportunities = {
   groups: BulletGroup[]
 }
 
+export type Prototype = {
+  title: string
+  description?: string
+  video?: ExplorationVideo
+  image?: string
+}
+
 export type CaseStudy = {
   slug: string
   title: string
@@ -118,6 +125,7 @@ export type CaseStudy = {
   benchmark?: Benchmark
   contentExploration: ContentExplorationStage[]
   beforeAfter: BeforeAfter[]
+  prototypes?: Prototype[]
   outcome?: string
   outcomeVideo?: ExplorationVideo
   matrixScan?: boolean
@@ -214,6 +222,17 @@ export const projects: CaseStudy[] = [
       },
     ],
     beforeAfter: [],
+    prototypes: [
+      {
+        title: 'Pre Scored BAU MLA',
+        description:
+          'Flujograma happypath (con y sin KYC6): Trigger User → Validaciones iniciales → Onboarding → Validación KYC6 → Dirección → RyC → Congrats. Para simplificar la representación del flujo, se trae únicamente la experiencia happypath con y sin KYC6; los casos de uso adicionales de cada instancia se reflejan en los specs, no en el flujo ejemplo.',
+        video: {
+          src: '/case-studies/maxwell/prototipos/pre-scored-bau-mla.png',
+          orientation: 'horizontal',
+        },
+      },
+    ],
   },
   {
     slug: 'usuarios-con-tc-en-otra-cuenta',
