@@ -7,6 +7,7 @@ import { Filmstrip } from '../components/Filmstrip'
 import { movimientosSample } from '../data/movimientosSample'
 import { MovementsExplorer } from '../components/MovementsExplorer'
 import { MapDrawReveal } from '../components/MapDrawReveal'
+import { MaxwellConversation } from '../components/MaxwellConversation'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -479,6 +480,11 @@ export function CaseStudy() {
                     alt={proto.title}
                     className="mt-3 w-full rounded-xl border border-neutral-100"
                   />
+                )}
+                {proto.interactive === 'maxwell-conversation' && (
+                  <div className="mt-4">
+                    <MaxwellConversation />
+                  </div>
                 )}
               </div>
             ))}

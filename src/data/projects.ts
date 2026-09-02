@@ -99,6 +99,7 @@ export type Prototype = {
   description?: string
   video?: ExplorationVideo
   image?: string
+  interactive?: 'maxwell-conversation'
 }
 
 export type CaseStudy = {
@@ -231,6 +232,12 @@ export const projects: CaseStudy[] = [
           src: '/case-studies/maxwell/prototipos/pre-scored-bau-mla.png',
           orientation: 'horizontal',
         },
+      },
+      {
+        title: 'Conversación: pedir la tarjeta desde Maxwell',
+        description:
+          'Simulación de cómo sería la conversación real, de punta a punta: desde que el usuario pide la tarjeta hasta que la tiene lista.',
+        interactive: 'maxwell-conversation',
       },
     ],
   },
