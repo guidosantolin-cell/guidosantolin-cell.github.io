@@ -182,7 +182,7 @@ export const projects: CaseStudy[] = [
         boxed: true,
         subsections: [
           {
-            title: 'Estructura básica',
+            title: 'Exploraciones Estructura básica',
           },
           {
             title: 'Exploraciones de widget',
