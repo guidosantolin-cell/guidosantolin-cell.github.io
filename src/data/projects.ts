@@ -114,7 +114,7 @@ export type CaseStudy = {
   tools: string[]
   accent: 'pink' | 'indigo' | 'yellow'
   coverImage?: string
-  coverComponent?: 'minicard-feedback'
+  coverComponent?: 'minicard-feedback' | 'hand-card'
   coverCaption?: string
   team?: { role: string; name: string }[]
   challenge?: Challenge
@@ -352,14 +352,13 @@ export const projects: CaseStudy[] = [
   },
   {
     slug: 'tarjeta-prepago-mla',
-    title: 'Flujo de Adquisición Tarjeta Prepaga MLA',
+    title: 'Adquisición Tarjeta Prepaga MLA',
     product: 'Tarjeta Prepaga Mercado Pago',
     countries: '🇦🇷 Argentina',
     period: PLACEHOLDER,
     tools: ['Figma'],
     accent: 'yellow',
-    coverImage: '/case-studies/tarjeta-prepago-mla-overview.png',
-    coverCaption: 'Vista previa exportada desde Figma — reemplazar por capturas por sección.',
+    coverComponent: 'hand-card',
     challenge: {
       intro: [
         'Como la experiencia de adquisición de la tarjeta de crédito de MLA tiene un diseño más alineado a una experiencia WOW, se decidió implementar oportunidades de mejora en el flujo de adquisición actual de la tarjeta prepaga y, así, lograr una mayor consistencia entre ambas experiencias, respetando los estándares CRAFT.',
@@ -561,7 +560,7 @@ export const projects: CaseStudy[] = [
     slug: 'matriz-chargeback',
     title: 'Matriz Chargeback',
     product: 'Tarjeta de Crédito Mercado Pago',
-    countries: '🇲🇽 México | 🇧🇷 Brasil',
+    countries: '🇦🇷 Argentina | 🇲🇽 México | 🇧🇷 Brasil',
     period: PLACEHOLDER,
     tools: ['Figma'],
     accent: 'indigo',

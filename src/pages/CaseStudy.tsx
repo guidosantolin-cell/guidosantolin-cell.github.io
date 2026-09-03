@@ -10,6 +10,7 @@ import { MapDrawReveal } from '../components/MapDrawReveal'
 import { MaxwellConversation } from '../components/MaxwellConversation'
 import { maxwellConversations } from '../data/maxwellConversations'
 import { MinicardFeedbackCover } from '../components/MinicardFeedbackCover'
+import { HandCardCover } from '../components/HandCardCover'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -61,6 +62,10 @@ export function CaseStudy() {
         {project.coverComponent === 'minicard-feedback' ? (
           <div className="overflow-hidden rounded-xl border border-neutral-100">
             <MinicardFeedbackCover />
+          </div>
+        ) : project.coverComponent === 'hand-card' ? (
+          <div className="mx-auto aspect-[9/16] max-w-xs overflow-hidden rounded-xl border border-neutral-100">
+            <HandCardCover />
           </div>
         ) : (
           project.coverImage && (

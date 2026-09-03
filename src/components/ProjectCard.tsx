@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { CaseStudy } from '../data/projects'
 import { accentClasses } from '../data/projects'
 import { MinicardFeedbackCover } from './MinicardFeedbackCover'
+import { HandCardCover } from './HandCardCover'
 
 export function ProjectCard({ project }: { project: CaseStudy }) {
   const accent = accentClasses[project.accent]
@@ -13,6 +14,8 @@ export function ProjectCard({ project }: { project: CaseStudy }) {
       <div className={`aspect-[4/3] overflow-hidden ${accent.bg}`}>
         {project.coverComponent === 'minicard-feedback' ? (
           <MinicardFeedbackCover />
+        ) : project.coverComponent === 'hand-card' ? (
+          <HandCardCover />
         ) : (
           <img
             src={project.coverImage}

@@ -96,3 +96,30 @@ body {
 .animate-shine-sweep {
   animation: shine-sweep 3.2s ease-in-out infinite;
 }
+
+@keyframes hand-enter-exit {
+  0% {
+    transform: translateY(115%);
+    opacity: 0;
+  }
+  18% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(115%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(115%);
+    opacity: 0;
+  }
+}
+
+.animate-hand-enter-exit {
+  animation: hand-enter-exit 5s ease-in-out infinite;
+}
