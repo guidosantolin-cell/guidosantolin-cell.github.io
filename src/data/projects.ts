@@ -212,7 +212,7 @@ export const projects: CaseStudy[] = [
         interactive: 'tc-mla',
       },
       {
-        title: 'Adqui Microtarjeta',
+        title: 'Adqui Microtarjeta Meli+',
         interactive: 'microtarjeta-mx',
       },
       {
