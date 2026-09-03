@@ -34,8 +34,8 @@ export type ContentExplorationStage = {
 
 export type Challenge = {
   intro: string[]
-  content: string[]
-  solution: string
+  content?: string[]
+  solution?: string
 }
 
 export type Benchmark = {
@@ -128,6 +128,7 @@ export type CaseStudy = {
   customSections?: CustomSection[]
   benchmark?: Benchmark
   contentExploration: ContentExplorationStage[]
+  contentExplorationTitle?: string
   beforeAfter: BeforeAfter[]
   prototypes?: Prototype[]
   outcome?: string
@@ -157,34 +158,13 @@ export const projects: CaseStudy[] = [
     tools: ['Figma'],
     accent: 'indigo',
     coverImage: '/case-studies/maxwell/mago-cover.svg',
-    team: [
-      {
-        role: 'UX',
-        name: 'Guido Santolin (UXW) · Tania Mendoça (UXD) · Juliana Toledo (PL)',
-      },
-      { role: 'Producto', name: 'Elisa Maria Anadon' },
-    ],
     challenge: {
       intro: [
-        'Pain points identificados en usuarios de Maxwell (el asistente conversacional de atención):',
-      ],
-      content: [
-        'Actuales: "No tengo tiempo para completar todo un proceso de adquisición de una tarjeta de crédito."',
-        'Con la experiencia: "No entiendo si es una tarjeta para usar solo en Mercado Libre o en cualquier lado."',
-      ],
-      solution:
-        'Que la persona usuaria pueda adquirir la Tarjeta de Crédito Mercado Pago directamente desde el chat de Maxwell, sin salir de la conversación.',
-    },
-    objectivesKpis: {
-      negocio: 'Reducir contact rate por solicitudes de tarjeta. Aumentar la emisión de tarjetas.',
-      experiencia:
-        'Que la persona usuaria adquiera la Tarjeta de Crédito Mercado Pago directamente desde Maxwell.',
-      kpis: [
-        'Usuarios que adquieren la Tarjeta de Crédito Mercado Pago desde Maxwell.',
-        'Reducción de Costos de Atención (USD/mes).',
-        'Reducción de Contact Rate.',
+        'Recientemente se puso en funcionamiento MAGO, un nuevo agente de AI que responde las dudas que tienen las personas sobre diferentes productos.',
+        'Integramos los flujos de solicitud para que la persona usuaria adquiera la Tarjeta de Crédito Mercado Pago directamente desde MAGO, en simples pasos.',
       ],
     },
+    contentExplorationTitle: 'Exploraciones',
     benchmark: {
       intro:
         'Relevamos referencias de bots conversacionales (bancos y agencias de viaje) y de bots con widgets UI para definir cómo presentar la oferta de la tarjeta dentro del chat de Maxwell, además de un benchmark visual de cards, modales y microinteracciones.',

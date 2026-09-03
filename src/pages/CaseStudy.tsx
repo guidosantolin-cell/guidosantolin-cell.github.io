@@ -90,15 +90,23 @@ export function CaseStudy() {
             </p>
           ))}
 
-          <p className="mt-6 font-medium text-neutral-900">Challenge</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-neutral-600">
-            {project.challenge.content.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
+          {project.challenge.content && (
+            <>
+              <p className="mt-6 font-medium text-neutral-900">Challenge</p>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-neutral-600">
+                {project.challenge.content.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          )}
 
-          <p className="mt-6 font-medium text-neutral-900">Solución</p>
-          <p className="mt-1 text-neutral-600">{project.challenge.solution}</p>
+          {project.challenge.solution && (
+            <>
+              <p className="mt-6 font-medium text-neutral-900">Solución</p>
+              <p className="mt-1 text-neutral-600">{project.challenge.solution}</p>
+            </>
+          )}
         </div>
       )}
 
@@ -326,7 +334,9 @@ export function CaseStudy() {
 
       {project.contentExploration.length > 0 && (
         <div className="mt-16">
-          <h2 className="text-2xl font-semibold text-neutral-900">Exploraciones de contenido</h2>
+          <h2 className="text-2xl font-semibold text-neutral-900">
+            {project.contentExplorationTitle ?? 'Exploraciones de contenido'}
+          </h2>
           <div className="mt-6 space-y-10">
             {project.contentExploration.map((stage) => (
               <div key={stage.title}>
