@@ -517,13 +517,20 @@ export function CaseStudy() {
           )}
 
           {ba.notes && (
-            <div className="mt-6 space-y-4 border-l-2 border-neutral-100 pl-4">
-              {ba.notes.map((note) => (
-                <div key={note.title}>
-                  <p className="text-sm font-medium text-neutral-900">{note.title}</p>
-                  <p className="mt-1 text-sm text-neutral-600">{note.body}</p>
-                </div>
-              ))}
+            <div className="mt-6">
+              <p className="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+                Highlights
+              </p>
+              <StaggerReveal
+                as="div"
+                className="mt-3 space-y-4 border-l-2 border-neutral-100 pl-4"
+                items={ba.notes.map((note) => (
+                  <div key={note.title}>
+                    <p className="text-sm font-medium text-neutral-900">{note.title}</p>
+                    <p className="mt-1 text-sm text-neutral-600">{note.body}</p>
+                  </div>
+                ))}
+              />
             </div>
           )}
         </div>

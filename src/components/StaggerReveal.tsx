@@ -4,11 +4,13 @@ import type { ReactNode } from 'react'
 export function StaggerReveal({
   items,
   className,
+  as = 'ul',
 }: {
   items: ReactNode[]
   className?: string
+  as?: 'ul' | 'div'
 }) {
-  const ref = useRef<HTMLUListElement>(null)
+  const ref = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -27,17 +29,20 @@ export function StaggerReveal({
     return () => observer.disconnect()
   }, [])
 
+  const Container = as
+  const Item = as === 'ul' ? 'li' : 'div'
+
   return (
-    <ul ref={ref} className={className}>
+    <Container ref={ref as never} className={className}>
       {items.map((item, i) => (
-        <li
+        <Item
           key={i}
           className={`stagger-item ${visible ? 'stagger-in' : ''}`}
           style={{ animationDelay: `${i * 180}ms` }}
         >
           {item}
-        </li>
+        </Item>
       ))}
-    </ul>
+    </Container>
   )
 }

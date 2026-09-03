@@ -390,15 +390,15 @@ export const projects: CaseStudy[] = [
         notes: [
           {
             title: 'Animación y reducción de pantallas',
-            body: 'El flujo original comenzaba con 4 pantallas fijas que destacaban características de la tarjeta. En línea con el benchmark realizado, decidimos eliminar el tradicional onboarding privilegiando un flujo más corto y directo. Para ello, aprovechamos cada componente al máximo, contando una o más VP en cada uno de ellos: todas las instancias cuentan algo relevante de la tarjeta. Además, incorporamos una animación para generar un alto impacto emocional y conectar con un sentido más aspiracional del usuario.',
+            body: 'Reemplazamos las 4 pantallas fijas del onboarding original por un flujo más corto con una animación de alto impacto emocional.',
           },
           {
             title: 'Título', // TODO: este título quedó como placeholder en Figma ("título") — pendiente de definir
-            body: 'Utilizamos este espacio para destacar un aspecto más aspiracional de la tarjeta que se complemente con los videos que muestra la animación.',
+            body: 'Usamos este espacio para destacar un aspecto más aspiracional de la tarjeta, en línea con la animación.',
           },
           {
             title: 'Sin botón',
-            body: 'Quitamos el botón para eliminar un paso innecesario, pues la animación continúa sola a la siguiente pantalla.',
+            body: 'Quitamos el botón porque la animación avanza sola a la siguiente pantalla.',
           },
         ],
       },
@@ -409,7 +409,7 @@ export const projects: CaseStudy[] = [
         notes: [
           {
             title: 'Menos pasos',
-            body: 'Redujimos la cantidad de pantallas a ver por el usuario, promoviendo un flujo más directo al momento de sacar la tarjeta prepaga.',
+            body: 'Redujimos la cantidad de pantallas para un flujo más directo al pedir la tarjeta prepaga.',
           },
           {
             title: 'Título', // TODO: este título también quedó como placeholder en Figma ("título") — pendiente de definir
@@ -421,23 +421,23 @@ export const projects: CaseStudy[] = [
           },
           {
             title: 'Row "Asociada a tu cuenta"',
-            body: 'Destaca que la tarjeta utiliza dinero disponible para funcionar. Según negocio, era vital remarcar este aspecto de la tarjeta ya que la mayoría de las consultas tiene que ver con cómo funciona la tarjeta.',
+            body: 'Destaca que la tarjeta funciona con dinero disponible, el aspecto sobre el que más consultan los usuarios.',
           },
           {
             title: 'Row "Emisión y mantenimiento"',
-            body: 'Aprovechamos la row para reforzar (porque también lo hacemos en el banner de acceso) que la tarjeta no tiene costo asociado. Aspecto que la mayoría de los players destacan de productos similares.',
+            body: 'Refuerza que la tarjeta no tiene costo asociado, algo que la mayoría de los players destacan de productos similares.',
           },
           {
             title: 'Botón "Modificar"',
-            body: 'Visibilizamos la opción de modificar, antes estaba dentro de los tres puntitos.',
+            body: 'Visibilizamos la opción de modificar, que antes estaba escondida en los tres puntitos.',
           },
           {
             title: 'Mensaje KYC',
-            body: 'Teniendo en cuenta que menos del 2% de los casos son KYC, decidimos incorporar un mensaje que anticipe esto en la pantalla de características de la tarjeta. De esta forma, también reducimos la cantidad de pantallas que tiene que ver el usuario para obtener su tarjeta.',
+            body: 'Anticipamos el caso KYC (menos del 2% de los pedidos) para reducir la cantidad de pantallas del flujo.',
           },
           {
             title: 'Botón',
-            body: 'Reemplazamos dos pasos por uno solo donde la acción del usuario tiene que ver con pedir la tarjeta. Además, traemos nuevamente la value "gratis" por ser altamente atractiva e incentivar el pedido.',
+            body: 'Unificamos dos pasos en un solo botón para pedir la tarjeta, resaltando nuevamente que es gratis.',
           },
         ],
       },
@@ -448,11 +448,11 @@ export const projects: CaseStudy[] = [
         notes: [
           {
             title: 'Congrats (usuario ya tiene virtual)',
-            body: 'Decidimos incorporar animación a la pantalla de congrats y reducir el contenido a lo mínimo indispensable. Para eso, destacamos lo esencial que debe saber el usuario sobre su tarjeta física y recordamos que para compras online tiene que usar la virtual.',
+            body: 'Incorporamos animación y reducimos el contenido a lo esencial, recordando que para compras online debe usar la tarjeta virtual.',
           },
           {
             title: 'Congrats (usuario no tiene virtual)',
-            body: 'Decidimos incorporar animación a la pantalla de congrats y reducir el contenido a lo mínimo indispensable. Para eso, destacamos lo esencial que debe saber el usuario sobre su tarjeta física y promovemos que el usuario genere su tarjeta virtual, recordándole que es gratis.',
+            body: 'Incorporamos animación y reducimos el contenido a lo esencial, promoviendo que el usuario genere su tarjeta virtual gratis.',
           },
         ],
       },
