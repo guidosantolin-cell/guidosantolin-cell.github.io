@@ -135,6 +135,7 @@ export type CaseStudy = {
   prototypes?: Prototype[]
   outcome?: string
   outcomeVideo?: ExplorationVideo
+  outcomeGroups?: { title: string; images: { src: string; caption?: string }[] }[]
   matrixScan?: boolean
   movementScan?: boolean
   movementsExplorer?: boolean
@@ -295,10 +296,29 @@ export const projects: CaseStudy[] = [
     beforeAfter: [],
     outcome:
       'Definimos el flujograma final para los 3 casos de uso (TC cancelada, TC vigente, oferta vigente), con sus pantallas de freno para Android e iOS, consistentes entre MLB, MLM y MLA, más el comportamiento del CTA.',
-    outcomeVideo: {
-      src: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
-      orientation: 'horizontal',
-    },
+    outcomeGroups: [
+      {
+        title: 'TC Precancelada',
+        images: [
+          { src: '/case-studies/users-tc-otra-cuenta/tc-precancelada-con-mail.png', caption: 'Propuesta con mail del user' },
+          { src: '/case-studies/users-tc-otra-cuenta/tc-precancelada-sin-mail.png', caption: 'Propuesta sin mail del user' },
+        ],
+      },
+      {
+        title: 'TC Vigente',
+        images: [
+          { src: '/case-studies/users-tc-otra-cuenta/tc-vigente-con-mail.png', caption: 'Propuesta con mail del user' },
+          { src: '/case-studies/users-tc-otra-cuenta/tc-vigente-sin-mail.png', caption: 'Propuesta sin mail del user' },
+        ],
+      },
+      {
+        title: 'Oferta vigente',
+        images: [
+          { src: '/case-studies/users-tc-otra-cuenta/oferta-vigente-con-mail.png', caption: 'Propuesta con mail' },
+          { src: '/case-studies/users-tc-otra-cuenta/oferta-vigente-sin-mail.png', caption: 'Propuesta sin mail' },
+        ],
+      },
+    ],
     handoffLink:
       'https://www.figma.com/design/MK22lfxMxNb03N0Bcc7Lqx/%F0%9F%87%A6%F0%9F%87%B7%F0%9F%87%A7%F0%9F%87%B7%F0%9F%87%B2%F0%9F%87%BD-Usuarios-con-TC-en-otra-cuenta?node-id=288-51539&m=dev',
   },

@@ -564,6 +564,31 @@ export function CaseStudy() {
               />
             </div>
           )}
+          {project.outcomeGroups && (
+            <div className="mt-6 space-y-8">
+              {project.outcomeGroups.map((group) => (
+                <div key={group.title}>
+                  <p className="font-medium text-neutral-900">{group.title}</p>
+                  <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                    {group.images.map((img) => (
+                      <div key={img.src}>
+                        <img
+                          src={img.src}
+                          alt={img.caption ?? group.title}
+                          className="w-full rounded-xl border border-neutral-100"
+                        />
+                        {img.caption && (
+                          <p className="mt-1.5 text-center text-xs text-neutral-500">
+                            {img.caption}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           {project.matrixScan && (
             <div className="mt-4">
               <MatrixScanTable />
