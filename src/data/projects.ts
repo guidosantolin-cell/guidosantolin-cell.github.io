@@ -230,18 +230,8 @@ export const projects: CaseStudy[] = [
     coverComponent: 'minicard-feedback',
     challenge: {
       intro: [
-        'Solo en Argentina, hay más de 8.500 errores por trimestre en el flujo de pago (código CCC07). Este número es solo la punta del iceberg — no contabiliza fallas en Engagement, Statements o Collection.',
-        'Nota técnica: el backend ya sabe si alguna de las cuentas vinculadas tiene o tuvo TC. La infraestructura existe (User Accounts Service + lógica de TC Adquisición) — solo falta anticipar dónde y cuándo se invoca esa validación.',
-        'Target: usuarios de Mercado Pago que poseen más de una cuenta vinculada al mismo documento de identidad (CPF, DNI, CURP) y que intentan acceder a funcionalidades de tarjeta de crédito (adquisición, pago, resumen, engagement) desde una cuenta donde la tarjeta no está activa. Sites: Argentina (MLA), Brasil (MLB), México (MLM); Chile (MLC) fuera de alcance por ahora. Impacta también a agentes de CX que usan Maxwell sin contexto sobre el error.',
+        'Muchos usuarios que tienen más de una cuenta de Mercado Pago querían acceder a diferentes funcionalidades de su tarjeta de crédito desde la cuenta equivocada. En el flujo previo, a pesar de que existen las capability técnicas, se daba visibilidad de esta situación recién al final de la experiencia que el user estaba experimentando. Se definió redefinir el feedback a dar y adelantarlo para que el user no tenga que experimentar toda la experiencia hasta enterarse que no puede avanzar.',
       ],
-      content: [
-        'Los deep links de cobro fallan cuando se abren en la cuenta secundaria (Collection).',
-        'Los agentes de Maxwell no pueden identificar la tarjeta en cuentas vinculadas, aumentando el tiempo de atención (AHT).',
-        'Los módulos de Statements (cambio de vencimiento, liquidación de saldo) también se ven afectados.',
-        'Los usuarios abandonan el flujo o recurren al soporte, generando churn y costo operativo.',
-      ],
-      solution:
-        'Mover la validación de multicuenta al inicio del funnel. Flujo técnico: (1) la Person Identification API devuelve los cust_ids vinculados al documento, (2) el backend de TC verifica el estado en cada cust_id. La infraestructura ya existe — el trabajo es anticipar el momento del chequeo y mostrar la pantalla de freno adecuada.',
     },
     objectivesKpis: {
       negocio:
