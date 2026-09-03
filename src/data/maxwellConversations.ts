@@ -57,12 +57,12 @@ export const maxwellConversations = {
       { from: 'user', text: 'Quiero una tarjeta de crédito' },
       {
         from: 'maxwell',
-        text: '¡Hola, {nombre user}! Tienes una tarjeta esperándote con anualidad gratis y $ {limit_amount} de límite.\n\nEste monto puede aumentar mes a mes si:\n\n• Gastas un mínimo de $ {n} por mes.\n\n• Pagas a tiempo el total del estado de cuenta.\n\n¿Avanzamos con el pedido de la tarjeta?',
+        text: '¡Hola, Lucia! Tienes una tarjeta esperándote con anualidad gratis y $ 400 de límite.\n\nEste monto puede aumentar mes a mes si:\n\n• Gastas un mínimo de $200 por mes.\n\n• Pagas a tiempo el total del estado de cuenta.\n\n¿Avanzamos con el pedido de la tarjeta?',
       },
       { from: 'user', text: 'Dale' },
       {
         from: 'maxwell',
-        text: '¡Bien! La dirección donde enviaremos la tarjeta física es {address}.\n\n¿Te parece bien?',
+        text: '¡Bien! La dirección donde enviaremos la tarjeta física es Poniente 146 No. 730, Col. Industrial Vallejo, Alcaldía Azcapotzalco, Ciudad de México.\n\n¿Te parece bien?',
       },
       { from: 'user', text: 'Sí, me parece bien' },
       { from: 'widget' },
@@ -70,11 +70,11 @@ export const maxwellConversations = {
     widget: {
       title: 'Vas a pedir la tarjeta de crédito',
       rows: [
-        { label: 'Límite', value: '$ {limit_amount}' },
+        { label: 'Límite', value: '$ 400' },
         { label: 'Anualidad', value: 'Gratis' },
-        { label: 'Cashback', value: 'Hasta {n}% en tus compras' },
-        { label: 'Vencimiento', value: 'Día {day} de cada mes' },
-        { label: 'Enviar tarjeta a', value: '{address}' },
+        { label: 'Cashback', value: 'Hasta 3% en tus compras' },
+        { label: 'Vencimiento', value: 'Día 5 de cada mes' },
+        { label: 'Enviar tarjeta a', value: 'Poniente 146 No. 730, Col. Industrial Vallejo, Alcaldía Azcapotzalco, Ciudad de México' },
       ],
       footer: [
         { text: 'Al confirmar, acepto los ' },
