@@ -10,10 +10,22 @@ export function Home() {
             Guido Santolin
           </h1>
           <p className="mt-2 text-xl text-neutral-500">UX Designer</p>
-          <p className="mt-6 max-w-md text-neutral-600">
-            Portafolio de proyectos de experiencia de usuario en Mercado Pago,
-            enfocados en adquisición de productos financieros.
-          </p>
+          <div className="mt-6 flex items-start gap-4">
+            <p className="max-w-md text-neutral-600">
+              Resumen de los principales proyectos realizados durante estos últimos meses
+            </p>
+            <div className="relative h-28 w-20 shrink-0 animate-card-float overflow-hidden rounded-xl shadow-lg">
+              <img
+                src="/home/hero-card.png"
+                alt="Tarjeta de Crédito Mercado Pago"
+                className="h-full w-full object-cover"
+                style={{ objectPosition: '50% 32%' }}
+              />
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute -inset-y-8 left-0 w-6 animate-shine-sweep bg-white/40 blur-sm" />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="relative flex aspect-square items-center justify-center">
           <div className="absolute inset-0 rounded-full bg-amber-100" />

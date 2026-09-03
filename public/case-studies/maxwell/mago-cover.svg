@@ -1,0 +1,53 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg { fill: #EEF2FF; }
+    .bubble-ai { fill: #FFFFFF; stroke: #E5E7EB; stroke-width: 2; }
+    .bubble-user { fill: #4F46E5; }
+    .dot { fill: #A5B4FC; }
+    .label { font-family: Inter, system-ui, sans-serif; }
+
+    @keyframes fadeSlideIn {
+      0%, 6% { opacity: 0; transform: translateY(10px); }
+      18%, 88% { opacity: 1; transform: translateY(0); }
+      98%, 100% { opacity: 0; transform: translateY(10px); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .ai-group {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: fadeSlideIn 6s ease-in-out infinite;
+    }
+    .user-group {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: fadeSlideIn 6s ease-in-out infinite;
+      animation-delay: 0.7s;
+    }
+    .dot { transform-box: fill-box; transform-origin: center; }
+    .dot1 { animation: bounce 0.9s ease-in-out infinite; }
+    .dot2 { animation: bounce 0.9s ease-in-out infinite 0.15s; }
+    .dot3 { animation: bounce 0.9s ease-in-out infinite 0.3s; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="400" height="300" />
+
+  <g class="ai-group">
+    <circle cx="46" cy="104" r="18" fill="#4F46E5" />
+    <text x="46" y="109" class="label" font-size="15" font-weight="600" fill="white" text-anchor="middle">M</text>
+    <rect x="76" y="80" width="132" height="48" rx="20" class="bubble-ai" />
+    <circle class="dot dot1" cx="104" cy="104" r="5" />
+    <circle class="dot dot2" cx="124" cy="104" r="5" />
+    <circle class="dot dot3" cx="144" cy="104" r="5" />
+  </g>
+
+  <g class="user-group">
+    <rect x="176" y="164" width="168" height="46" rx="20" class="bubble-user" />
+    <text x="260" y="192" class="label" font-size="14" fill="white" text-anchor="middle">¿Puedo pedir una TC?</text>
+  </g>
+</svg>

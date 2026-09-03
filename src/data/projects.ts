@@ -149,13 +149,13 @@ const PLACEHOLDER = '[Completar con tu contenido]'
 export const projects: CaseStudy[] = [
   {
     slug: 'flujo-adqui-tc-en-maxwell',
-    title: 'Flujo Adqui TC en Maxwell',
+    title: 'Flujo conversacional MAGO',
     product: 'Tarjeta de Crédito Mercado Pago',
-    countries: '🇧🇷 Brasil',
+    countries: '🇧🇷 Brasil | 🇲🇽 México | 🇦🇷 Argentina | 🇨🇱 Chile',
     period: PLACEHOLDER,
     tools: ['Figma'],
     accent: 'indigo',
-    coverImage: '/case-studies/maxwell/storytelling1.png',
+    coverImage: '/case-studies/maxwell/mago-cover.svg',
     team: [
       {
         role: 'UX',
