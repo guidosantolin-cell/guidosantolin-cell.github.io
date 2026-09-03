@@ -25,7 +25,7 @@ export type ExplorationSubsection = {
 
 export type ContentExplorationStage = {
   title: string
-  body: string
+  body?: string
   image?: string
   images?: { src: string; caption?: string }[]
   video?: ExplorationVideo
@@ -133,6 +133,7 @@ export type CaseStudy = {
   contentExploration: ContentExplorationStage[]
   contentExplorationTitle?: string
   beforeAfter: BeforeAfter[]
+  beforeAfterTitle?: string
   prototypes?: Prototype[]
   outcome?: string
   outcomeVideo?: ExplorationVideo
@@ -350,21 +351,12 @@ export const projects: CaseStudy[] = [
         'A pesar de presentarlas como parte de un mismo producto, 6 de 7 players, también las diferencian entre física y virtual.',
       ],
     },
+    contentExplorationTitle: 'Exploraciones',
     contentExploration: [
       {
-        title: '1. ¿Qué historia vamos a contar?',
-        body: 'Comenzamos armando la historia conceptual: un camino basado en el "viaje del héroe" para aterrizar la propuesta de valor.',
+        title: 'Content Prototype: definimos la historia a contar',
         image: '/case-studies/exploracion/1-arco-narrativo.png',
-      },
-      {
-        title: '2. Un producto, muchas historias',
-        body: 'Usamos ChatGPT para explorar y evaluar distintos enfoques de comunicación. Este ejercicio nos permitió identificar posibles formas de contar la historia en general y conceptos interesantes para explorar.',
-      },
-      {
-        title: '3. Content Prototype',
-        body: 'En paralelo, llevamos adelante un ejercicio de content prototype que nos permitió identificar las ideas principales y secundarias que conformaban la historia.',
         video: { src: '/case-studies/exploracion/3-content-prototype.png', orientation: 'vertical' },
-        image: '/case-studies/exploracion/ideas-breakdown.png',
       },
       {
         title: '4. Seguimos explorando caminos',
@@ -380,57 +372,13 @@ export const projects: CaseStudy[] = [
       },
       {
         title: '5. Exploramos en diseño',
-        body: 'Una vez identificados los diferentes caminos, bajamos dichas propuestas en el diseño y realizamos los ajustes necesarios.',
         video: { src: '/case-studies/exploracion/5-diseno.png', orientation: 'horizontal' },
       },
-      {
-        title: '6. Challengeamos la historia',
-        body: 'Realizamos reuniones con producto y negocio donde debatimos la historia a contar y conocimos las necesidades de cada área. A partir de ellas, surgieron ciertas propuestas de iteraciones.',
-        subsections: [
-          {
-            title: 'Challenge',
-            video: {
-              src: '/case-studies/exploracion/challenge-frames.png',
-              orientation: 'vertical',
-            },
-          },
-          {
-            title: 'Casos de error',
-            video: {
-              src: '/case-studies/exploracion/casos-error-frames.png',
-              orientation: 'vertical',
-            },
-          },
-          {
-            title: 'Exploración RyC',
-            video: { src: '/case-studies/exploracion/ryc-frames.png', orientation: 'vertical' },
-          },
-          {
-            title: 'Onboarding',
-            body: 'Copys explorados para la pantalla de onboarding:',
-            items: [
-              'La tarjeta que se adapta a tu vida',
-              'Tu tarjeta, tu dinero disponible en tu día a día',
-              'Usala en comercios o para sacar dinero',
-              'La tarjeta para pagar con dinero disponible',
-              'La tarjeta para usar tu dinero disponible',
-              'Tarjeta Prepaga física Mercado Pago',
-              'Tu dinero disponible siempre contigo',
-              'Simple y fácil como la app de Mercado Pago',
-              'Simple y rápido como Mercado Pago',
-            ],
-          },
-        ],
-      },
-      {
-        title: '7. Ajustes finales',
-        body: 'Mediante la generación de diferentes alternativas por componente, redefinimos el orden de la historia para incluir aspectos destacados como importantes en las reuniones previas.',
-        image: '/case-studies/exploracion/7-ajustes-finales.png',
-      },
     ],
+    beforeAfterTitle: 'Resultado',
     beforeAfter: [
       {
-        title: 'Accesos',
+        title: 'Acceso',
         body: 'Realizamos un cambio en el banner donde incorporamos como un concepto relevante que la tarjeta se pide de forma gratuita.',
         beforeImage: '/case-studies/accesos/antes.png',
         afterImage: '/case-studies/accesos/despues.png',

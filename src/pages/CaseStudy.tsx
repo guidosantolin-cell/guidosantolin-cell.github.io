@@ -370,7 +370,7 @@ export function CaseStudy() {
                 {stage.title && (
                   <p className="font-medium text-neutral-900">{stage.title}</p>
                 )}
-                <p className="mt-1 text-neutral-600">{stage.body}</p>
+                {stage.body && <p className="mt-1 text-neutral-600">{stage.body}</p>}
 
                 {stage.video && (
                   <div className="mt-3">
@@ -456,9 +456,21 @@ export function CaseStudy() {
         </div>
       )}
 
+      {project.beforeAfterTitle && project.beforeAfter.length > 0 && (
+        <div className="mt-16">
+          <h2 className="text-2xl font-semibold text-neutral-900">
+            {project.beforeAfterTitle}
+          </h2>
+        </div>
+      )}
+
       {project.beforeAfter.map((ba) => (
-        <div key={ba.title} className="mt-16">
-          <h2 className="text-2xl font-semibold text-neutral-900">{ba.title}</h2>
+        <div key={ba.title} className={project.beforeAfterTitle ? 'mt-10' : 'mt-16'}>
+          {project.beforeAfterTitle ? (
+            <p className="text-lg font-medium text-neutral-900">{ba.title}</p>
+          ) : (
+            <h2 className="text-2xl font-semibold text-neutral-900">{ba.title}</h2>
+          )}
           {ba.body && <p className="mt-3 text-neutral-600">{ba.body}</p>}
           {ba.items && (
             <ul className="mt-2 list-disc space-y-1 pl-5 text-neutral-600">

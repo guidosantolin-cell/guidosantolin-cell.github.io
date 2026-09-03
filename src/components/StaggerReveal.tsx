@@ -32,12 +32,8 @@ export function StaggerReveal({
       {items.map((item, i) => (
         <li
           key={i}
-          className="stagger-item"
-          style={{
-            transitionDelay: `${i * 120}ms`,
-            opacity: visible ? 1 : undefined,
-            transform: visible ? 'translateY(0)' : undefined,
-          }}
+          className={`stagger-item ${visible ? 'stagger-in' : ''}`}
+          style={{ animationDelay: `${i * 180}ms` }}
         >
           {item}
         </li>
