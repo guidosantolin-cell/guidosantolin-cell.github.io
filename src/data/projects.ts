@@ -208,28 +208,15 @@ export const projects: CaseStudy[] = [
     beforeAfter: [],
     prototypes: [
       {
-        title: 'Pre Scored BAU MLA',
-        description:
-          'Flujograma happypath (con y sin KYC6): Trigger User → Validaciones iniciales → Onboarding → Validación KYC6 → Dirección → RyC → Congrats. Para simplificar la representación del flujo, se trae únicamente la experiencia happypath con y sin KYC6; los casos de uso adicionales de cada instancia se reflejan en los specs, no en el flujo ejemplo.',
-        video: {
-          src: '/case-studies/maxwell/prototipos/pre-scored-bau-mla.png',
-          orientation: 'horizontal',
-        },
-      },
-      {
-        title: 'Conversación: pedir la tarjeta desde Maxwell',
-        description:
-          'Simulación de cómo sería la conversación real, de punta a punta: desde que el usuario pide la tarjeta hasta que la tiene lista.',
+        title: 'Adqui Pre Scored BAU',
         interactive: 'tc-mla',
       },
       {
         title: 'Adqui Microtarjeta',
-        description: 'Flujo de adquisición de la Microtarjeta para México',
         interactive: 'microtarjeta-mx',
       },
       {
         title: 'Adqui TC Free Trial',
-        description: 'Flujo de adquisición para usuarios Free Trial',
         interactive: 'tc-free-trial',
       },
     ],
