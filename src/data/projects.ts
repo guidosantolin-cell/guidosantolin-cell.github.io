@@ -246,6 +246,11 @@ export const projects: CaseStudy[] = [
         description: 'Flujo de adquisición de la Microtarjeta para México',
         interactive: 'microtarjeta-mx',
       },
+      {
+        title: 'Adqui TC Free Trial',
+        description: 'Flujo de adquisición para usuarios Free Trial',
+        interactive: 'tc-free-trial',
+      },
     ],
   },
   {
