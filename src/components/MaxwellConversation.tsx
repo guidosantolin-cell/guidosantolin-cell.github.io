@@ -49,7 +49,11 @@ function WidgetCard({
         <p className="mt-3 text-base font-semibold text-neutral-900">{spec.title}</p>
         <p className="mt-2 text-sm text-neutral-600">{spec.body}</p>
         <div className="mt-3 flex items-center justify-between">
-          <p className="text-base font-semibold text-neutral-900">
+          <p
+            className={`text-base font-semibold text-neutral-900 ${
+              spec.priceStrikethrough ? 'text-neutral-400 line-through decoration-neutral-400' : ''
+            }`}
+          >
             {spec.price}
             {spec.priceSuffix && (
               <span className="text-sm font-normal text-neutral-500">{spec.priceSuffix}</span>

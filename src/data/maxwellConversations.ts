@@ -16,6 +16,7 @@ export type PromoWidget = {
   body: string
   price: string
   priceSuffix?: string
+  priceStrikethrough?: boolean
   banner?: string
   note?: string
   footer: FooterSegment[]
@@ -139,9 +140,10 @@ export const maxwellConversations = {
           kind: 'promo',
           badge: 'meli+',
           title: 'Agrega Meli+ a la tarjeta y aprovéchala al máximo',
-          body: 'Gana hasta {n}% de cashback en tus compras y envíos gratis en Mercado Libre.',
+          body: 'Gana hasta 5% de cashback en tus compras y envíos gratis en Mercado Libre.',
           price: '$ 9,99',
           priceSuffix: '/mes',
+          priceStrikethrough: true,
           banner: '3 meses gratis',
           note: 'Cancela cuando quieras.',
           footer: [
@@ -160,7 +162,7 @@ export const maxwellConversations = {
           rows: [
             { label: 'Límite', value: '$ 2,000' },
             { label: 'Anualidad', value: 'Gratis' },
-            { label: 'Cashback', value: 'Hasta {n}% en tus compras' },
+            { label: 'Cashback', value: 'Hasta 5% en tus compras' },
             { label: 'Vencimiento', value: 'Día 5 de cada mes' },
             {
               label: 'Enviar tarjeta a',
