@@ -30,6 +30,7 @@ export type ContentExplorationStage = {
   images?: { src: string; caption?: string }[]
   video?: ExplorationVideo
   subsections?: ExplorationSubsection[]
+  boxed?: boolean
 }
 
 export type Challenge = {
@@ -176,31 +177,26 @@ export const projects: CaseStudy[] = [
     },
     contentExploration: [
       {
-        title: 'Storytelling',
-        body: 'Estudio de contenido para definir cómo Maxwell debía comunicar la oferta y la solicitud de la tarjeta según el estado del usuario. Scope detallado:',
-        video: {
-          src: '/case-studies/maxwell/storytelling1-hires.png',
-          orientation: 'vertical',
-        },
+        title: '',
+        body: 'Teniendo en cuenta el benchmark realizado, analizamos diferentes formas en la manera de contar la historia de la adquisición de la tarjeta.',
+        boxed: true,
         subsections: [
           {
-            title: 'Usuarios prescored',
-            items: [
-              'Aquellos que ingresan a Maxwell y proactivamente piden la Tarjeta de Crédito Mercado Pago.',
-              'Aquellos que por algún otro motivo ingresan a Maxwell y el agente les ofrece la tarjeta.',
-            ],
+            title: 'Estructura básica',
           },
           {
-            title: 'Usuarios Scoring Real Time',
-            items: [
-              'Aquellos que ingresan a Maxwell, proactivamente piden la Tarjeta de Crédito Mercado Pago y, tras analizar su historial crediticio, son aprobados a solicitarla.',
-              'Aquellos que ingresan a Maxwell por otro asunto, el agente analiza su historial crediticio y, tras concluir que son buenos perfiles, les ofrece la TC.',
-            ],
+            title: 'Exploraciones de widget',
+            video: {
+              src: '/case-studies/maxwell/exploraciones-widget.png',
+              orientation: 'vertical',
+            },
           },
           {
-            title: 'Primer borrador de la historia',
-            body:
-              'Tenés una Tarjeta de Crédito Mercado Pago preaprobada. Para pedirla, necesitamos que elijas la fecha de vencimiento que mejor se te acomode y nos indiques dónde quieres recibir la tarjeta física. Por favor, ten en cuenta aceptar los TyC para generar el pedido con éxito.\n\nTu tarjeta tiene un límite de $3.000.000 y ofrece cuotas sin interés en Mercado Libre y en comercios con QR de Mercado Pago desde $50.000. Además, si sos Meli+, te ofrece cashback de hasta {x}%.',
+            title: 'Exploraciones modo conversacional',
+            video: {
+              src: '/case-studies/maxwell/exploraciones-conversacional.png',
+              orientation: 'horizontal',
+            },
           },
         ],
       },

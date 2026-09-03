@@ -340,7 +340,9 @@ export function CaseStudy() {
           <div className="mt-6 space-y-10">
             {project.contentExploration.map((stage) => (
               <div key={stage.title}>
-                <p className="font-medium text-neutral-900">{stage.title}</p>
+                {stage.title && (
+                  <p className="font-medium text-neutral-900">{stage.title}</p>
+                )}
                 <p className="mt-1 text-neutral-600">{stage.body}</p>
 
                 {stage.video && (
@@ -383,34 +385,42 @@ export function CaseStudy() {
                 )}
 
                 {stage.subsections && (
-                  <div className="mt-4 space-y-6">
-                    {stage.subsections.map((sub) => (
-                      <div key={sub.title}>
-                        <p className="text-sm font-medium text-neutral-900">{sub.title}</p>
-                        {sub.body && (
-                          <p className="mt-1 whitespace-pre-line text-sm text-neutral-600">
-                            {sub.body}
-                          </p>
-                        )}
-                        {sub.video && (
-                          <div className="mt-2">
-                            <Filmstrip
-                              src={sub.video.src}
-                              alt={sub.title}
-                              orientation={sub.video.orientation}
-                              size={220}
-                            />
-                          </div>
-                        )}
-                        {sub.items && (
-                          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-600">
-                            {sub.items.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))}
+                  <div
+                    className={
+                      stage.boxed
+                        ? 'mt-4 rounded-2xl bg-neutral-50 p-6 sm:p-8'
+                        : 'mt-4 space-y-6'
+                    }
+                  >
+                    <div className={stage.boxed ? 'grid gap-8 sm:grid-cols-3' : 'space-y-6'}>
+                      {stage.subsections.map((sub) => (
+                        <div key={sub.title}>
+                          <p className="text-sm font-medium text-neutral-900">{sub.title}</p>
+                          {sub.body && (
+                            <p className="mt-1 whitespace-pre-line text-sm text-neutral-600">
+                              {sub.body}
+                            </p>
+                          )}
+                          {sub.video && (
+                            <div className="mt-2">
+                              <Filmstrip
+                                src={sub.video.src}
+                                alt={sub.title}
+                                orientation={sub.video.orientation}
+                                size={220}
+                              />
+                            </div>
+                          )}
+                          {sub.items && (
+                            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-600">
+                              {sub.items.map((item) => (
+                                <li key={item}>{item}</li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
