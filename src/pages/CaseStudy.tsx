@@ -603,6 +603,20 @@ export function CaseStudy() {
           )}
         </div>
       )}
+
+      {!project.outcome && project.handoffLink && (
+        <div className="mt-16">
+          <a
+            href={project.handoffLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700"
+          >
+            Ir al Handoff
+            <span aria-hidden>↗</span>
+          </a>
+        </div>
+      )}
     </main>
   )
 }

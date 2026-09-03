@@ -216,6 +216,8 @@ export const projects: CaseStudy[] = [
         interactive: 'tc-free-trial',
       },
     ],
+    handoffLink:
+      'https://www.figma.com/design/pAiJw2UULraXm0nXdhwbRg/%F0%9F%8C%8E-Maxwell-Conversacional--Handoff-?node-id=1-8&p=f&t=WFuIZbU58Zmz4sEh-0',
   },
   {
     slug: 'usuarios-con-tc-en-otra-cuenta',
