@@ -32,7 +32,6 @@ export type Turn =
 
 export type MaxwellConversationConfig = {
   script: Turn[]
-  highlightPhrases: string[]
 }
 
 export const maxwellConversations = {
@@ -70,10 +69,9 @@ export const maxwellConversations = {
       },
       {
         from: 'maxwell',
-        text: '¡Excelente! Tu Tarjeta de crédito está lista. 🎉\n\n• El plástico llegará pronto pero ya podés comprar online con tu tarjeta virtual.\n• Conocé tus nuevos beneficios exclusivos.\n\n¿Necesitás algo más?',
+        text: '¡Excelente! Tu Tarjeta de crédito está lista. 🎉\n\n• El plástico llegará pronto pero ya podés comprar online con {{tu tarjeta virtual}}.\n• Conocé tus nuevos {{beneficios exclusivos}}.\n\n¿Necesitás algo más?',
       },
     ],
-    highlightPhrases: ['tu tarjeta virtual', 'beneficios exclusivos'],
   },
   'microtarjeta-mx': {
     script: [
@@ -115,10 +113,9 @@ export const maxwellConversations = {
       },
       {
         from: 'maxwell',
-        text: '¡Excelente! Tu tarjeta de crédito está lista. 🎉\n\n• Tu tarjeta física llegará pronto pero ya puedes comprar online con tu tarjeta digital.\n• Conoce tus nuevos beneficios exclusivos.\n\n¿Necesitas algo más?',
+        text: '¡Excelente! Tu tarjeta de crédito está lista. 🎉\n\n• Tu tarjeta física llegará pronto pero ya puedes comprar online con {{tu tarjeta digital}}.\n• Conoce tus nuevos {{beneficios exclusivos}}.\n\n¿Necesitas algo más?',
       },
     ],
-    highlightPhrases: ['tu tarjeta digital', 'beneficios exclusivos'],
   },
   'tc-free-trial': {
     script: [
@@ -180,10 +177,9 @@ export const maxwellConversations = {
       },
       {
         from: 'maxwell',
-        text: '¡Excelente! Tu tarjeta de crédito está lista. 🎉\n\n• Tu tarjeta física llegará pronto pero ya puedes comprar online con tu tarjeta digital.\n• Conoce tus nuevos beneficios exclusivos.\n\n¿Necesitas algo más?',
+        text: '¡Excelente! Tu tarjeta de crédito está lista. 🎉\n\n• Tu tarjeta física llegará pronto pero ya puedes comprar online con {{tu tarjeta digital}}.\n• Conoce tus nuevos {{beneficios exclusivos}}.\n\n¿Necesitas algo más?',
       },
     ],
-    highlightPhrases: ['tu tarjeta digital', 'beneficios exclusivos'],
   },
 } satisfies Record<string, MaxwellConversationConfig>
 

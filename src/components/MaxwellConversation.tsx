@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MaxwellConversationConfig, WidgetSpec } from '../data/maxwellConversations'
 
-function renderRich(text: string, highlightPhrases: string[]) {
-  if (highlightPhrases.length === 0) return text
-  const pattern = new RegExp(`(${highlightPhrases.join('|')})`, 'g')
+function renderRich(text: string) {
+  const pattern = /\{\{(.+?)\}\}/g
   return text.split(pattern).map((part, i) =>
-    highlightPhrases.includes(part) ? (
+    i % 2 === 1 ? (
       <span key={i} className="cursor-pointer text-indigo-600 underline underline-offset-2">
         {part}
       </span>
@@ -43,15 +42,17 @@ function WidgetCard({
   if (spec.kind === 'promo') {
     return (
       <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
-        <span className="inline-block rounded-full bg-rose-500 px-2.5 py-1 text-xs font-semibold text-white">
-          {spec.badge}
-        </span>
-        <p className="mt-3 text-base font-semibold text-neutral-900">{spec.title}</p>
+        <div className="flex items-start gap-2">
+          <span className="inline-block shrink-0 rounded-full bg-rose-500 px-2.5 py-1 text-xs font-semibold text-white">
+            {spec.badge}
+          </span>
+          <p className="text-base font-semibold text-neutral-900">{spec.title}</p>
+        </div>
         <p className="mt-2 text-sm text-neutral-600">{spec.body}</p>
         <div className="mt-3 flex items-center justify-between">
           <p
             className={`text-base font-semibold text-neutral-900 ${
-              spec.priceStrikethrough ? 'text-neutral-400 line-through decoration-neutral-400' : ''
+              spec.priceStrikethrough ? 'text-neutral-500 line-through decoration-neutral-600 decoration-2' : ''
             }`}
           >
             {spec.price}
@@ -109,7 +110,7 @@ function WidgetCard({
 }
 
 export function MaxwellConversation({ config }: { config: MaxwellConversationConfig }) {
-  const { script, highlightPhrases } = config
+  const { script } = config
   const [revealedCount, setRevealedCount] = useState(0)
   const [typing, setTyping] = useState(false)
   const [resolvedWidgets, setResolvedWidgets] = useState<Record<number, boolean>>({})
@@ -238,7 +239,7 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
                   : 'self-start rounded-bl-sm border border-neutral-200 bg-white text-neutral-800'
               }`}
             >
-              {turn.from === 'maxwell' ? renderRich(turn.text, highlightPhrases) : turn.text}
+              {turn.from === 'maxwell' ? renderRich(turn.text) : turn.text}
             </div>
           )
         })}
