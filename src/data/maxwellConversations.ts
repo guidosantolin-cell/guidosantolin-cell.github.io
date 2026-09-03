@@ -99,7 +99,7 @@ export const maxwellConversations = {
             { label: 'Vencimiento', value: 'Día 5 de cada mes' },
             {
               label: 'Enviar tarjeta a',
-              value: 'Poniente 146 No. 730, Col. Industrial Vallejo, Alcaldía Azcapotzalco, Ciudad de México',
+              value: 'Poniente 146, Col. Industrial...',
             },
           ],
           footer: [
@@ -163,7 +163,7 @@ export const maxwellConversations = {
             { label: 'Vencimiento', value: 'Día 5 de cada mes' },
             {
               label: 'Enviar tarjeta a',
-              value: 'Poniente 146 No. 730, Col. Industrial Vallejo, Alcaldía Azcapotzalco, Ciudad de México',
+              value: 'Poniente 146, Col. Industrial...',
             },
           ],
           footer: [
