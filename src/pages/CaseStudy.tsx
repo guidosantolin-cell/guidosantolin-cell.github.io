@@ -11,6 +11,7 @@ import { MaxwellConversation } from '../components/MaxwellConversation'
 import { maxwellConversations } from '../data/maxwellConversations'
 import { MinicardFeedbackCover } from '../components/MinicardFeedbackCover'
 import { HandCardCover } from '../components/HandCardCover'
+import { StaggerReveal } from '../components/StaggerReveal'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -333,13 +334,12 @@ export function CaseStudy() {
             </p>
           )}
           {project.benchmark.findings && (
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-neutral-600">
-              {project.benchmark.findings.map((item) => (
-                <li key={item}>
-                  <RichText text={item} />
-                </li>
+            <StaggerReveal
+              className="mt-4 list-disc space-y-2 pl-5 text-neutral-600"
+              items={project.benchmark.findings.map((item) => (
+                <RichText key={item} text={item} />
               ))}
-            </ul>
+            />
           )}
 
           {project.benchmark.recommendationsIntro && (
