@@ -483,36 +483,40 @@ export function CaseStudy() {
       {project.prototypes && (
         <div className="mt-16">
           <h2 className="text-2xl font-semibold text-neutral-900">Prototipos</h2>
-          <div className="mt-6 space-y-10">
-            {project.prototypes.map((proto) => (
-              <div key={proto.title}>
-                <p className="font-medium text-neutral-900">{proto.title}</p>
-                {proto.description && (
-                  <p className="mt-1 text-neutral-600">{proto.description}</p>
-                )}
-                {proto.video && (
-                  <div className="mt-3">
-                    <Filmstrip
-                      src={proto.video.src}
-                      alt={proto.title}
-                      orientation={proto.video.orientation}
-                    />
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {project.prototypes.map((proto) => {
+              const naturalHeight = proto.interactive ? 624 : 280
+              const scale = 0.46
+              return (
+                <div key={proto.title} className="group relative">
+                  <p className="font-medium text-neutral-900">{proto.title}</p>
+                  {proto.description && (
+                    <p className="mt-1 text-sm text-neutral-600">{proto.description}</p>
+                  )}
+                  <div className="relative mt-3" style={{ height: naturalHeight * scale }}>
+                    <div className="proto-preview absolute left-0 top-0 w-[360px] origin-top-left group-hover:z-30 group-hover:shadow-2xl">
+                      {proto.video && (
+                        <Filmstrip
+                          src={proto.video.src}
+                          alt={proto.title}
+                          orientation={proto.video.orientation}
+                        />
+                      )}
+                      {proto.image && (
+                        <img
+                          src={proto.image}
+                          alt={proto.title}
+                          className="w-full rounded-xl border border-neutral-100"
+                        />
+                      )}
+                      {proto.interactive && (
+                        <MaxwellConversation config={maxwellConversations[proto.interactive]} />
+                      )}
+                    </div>
                   </div>
-                )}
-                {proto.image && (
-                  <img
-                    src={proto.image}
-                    alt={proto.title}
-                    className="mt-3 w-full rounded-xl border border-neutral-100"
-                  />
-                )}
-                {proto.interactive && (
-                  <div className="mt-4">
-                    <MaxwellConversation config={maxwellConversations[proto.interactive]} />
-                  </div>
-                )}
-              </div>
-            ))}
+                </div>
+              )
+            })}
           </div>
         </div>
       )}

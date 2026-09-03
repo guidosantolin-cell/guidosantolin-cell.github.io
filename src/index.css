@@ -123,3 +123,12 @@ body {
 .animate-hand-enter-exit {
   animation: hand-enter-exit 5s ease-in-out infinite;
 }
+
+.proto-preview {
+  transform: scale(0.46);
+  transition: transform 300ms ease-out;
+}
+
+.group:hover .proto-preview {
+  transform: scale(1);
+}
