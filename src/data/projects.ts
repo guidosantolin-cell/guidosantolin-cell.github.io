@@ -237,50 +237,6 @@ export const projects: CaseStudy[] = [
         'Muchos usuarios que tienen más de una cuenta de Mercado Pago querían acceder a diferentes funcionalidades de su tarjeta de crédito desde la cuenta equivocada. En el flujo previo, a pesar de que existen las capability técnicas, se daba visibilidad de esta situación recién al final de la experiencia que el user estaba experimentando. Se definió redefinir el feedback a dar y adelantarlo para que el user no tenga que experimentar toda la experiencia hasta enterarse que no puede avanzar.',
       ],
     },
-    objectivesKpis: {
-      negocio:
-        'Reducir los 8.500+ errores trimestrales en el flujo de pago (AR) y las fallas no medidas en Engagement, Collection, Statements y Adquisición. Disminuir los llamados al soporte (Maxwell y CX) relacionados a multicuenta, reduciendo costo operativo y AHT.',
-      kpis: [
-        'Reducción de errores CCC07 en MLA (monitoreado vía dashboard de Looker).',
-        'Reducción de contactos a Maxwell y escalaciones a CX por motivo de multicuenta.',
-        'Tasa de redireccionamiento exitoso (el usuario llega a la cuenta correcta).',
-        'Reducción de churn en el funnel de adquisición de TC.',
-      ],
-    },
-    scope: {
-      intro:
-        'Todo el diseño de UX centralizado en el equipo de Adquisición. Squads involucrados: UX Adqui, Front Adqui, Back Adqui, Front Collections, Front Engagement.',
-      groups: [
-        {
-          title: 'Dentro de alcance (Q2)',
-          items: [
-            'Detección anticipada en Adquisición (mover la validación al inicio del funnel).',
-            'Redirección desde Engagement hacia el freno correspondiente según el estado de la TC.',
-            'Diseño de experiencia para UC 1 (cancelada) + UC 2 (activa/otro estado).',
-            'Desarrollo y delivery — Sites: MLB, MLM, MLA.',
-            'Lógica para embeber en Maxwell.',
-          ],
-        },
-        {
-          title: 'Fuera de alcance (Q2)',
-          items: [
-            'MLC — User Accounts API no disponible (previsto para fin de Q2).',
-            'Usuarios no-KYC — no es posible invocar User Accounts.',
-            'Otros casos edge a definir.',
-          ],
-        },
-        {
-          title: 'Impactos',
-          items: [
-            'Adquisición: validación proactiva en el inicio del funnel + pantalla de freno por UC.',
-            'Engagement: capability en los middles para identificar TC y redirigir al freno de Adquisición.',
-            'Collection: validación cross-account para deep links de cobro/resumen.',
-            'Statements: cambio de vencimiento, liquidación de saldo — módulos afectados.',
-            'Maxwell: refinar Startup Tool + scripts de acción por escenario.',
-          ],
-        },
-      ],
-    },
     mapReveal: {
       image: '/case-studies/users-tc-otra-cuenta/mapa-entendimiento.png',
     },
