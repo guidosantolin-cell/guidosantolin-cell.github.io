@@ -8,6 +8,7 @@ import { movimientosSample } from '../data/movimientosSample'
 import { MovementsExplorer } from '../components/MovementsExplorer'
 import { MapDrawReveal } from '../components/MapDrawReveal'
 import { MaxwellConversation } from '../components/MaxwellConversation'
+import { maxwellConversations } from '../data/maxwellConversations'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -481,9 +482,9 @@ export function CaseStudy() {
                     className="mt-3 w-full rounded-xl border border-neutral-100"
                   />
                 )}
-                {proto.interactive === 'maxwell-conversation' && (
+                {proto.interactive && (
                   <div className="mt-4">
-                    <MaxwellConversation />
+                    <MaxwellConversation config={maxwellConversations[proto.interactive]} />
                   </div>
                 )}
               </div>

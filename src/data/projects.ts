@@ -1,3 +1,5 @@
+import type { MaxwellConversationId } from './maxwellConversations'
+
 export type BeforeAfter = {
   title: string
   beforeLabel?: string
@@ -99,7 +101,7 @@ export type Prototype = {
   description?: string
   video?: ExplorationVideo
   image?: string
-  interactive?: 'maxwell-conversation'
+  interactive?: MaxwellConversationId
 }
 
 export type CaseStudy = {
@@ -237,7 +239,12 @@ export const projects: CaseStudy[] = [
         title: 'Conversación: pedir la tarjeta desde Maxwell',
         description:
           'Simulación de cómo sería la conversación real, de punta a punta: desde que el usuario pide la tarjeta hasta que la tiene lista.',
-        interactive: 'maxwell-conversation',
+        interactive: 'tc-mla',
+      },
+      {
+        title: 'Adqui Microtarjeta',
+        description: 'Flujo de adquisición de la Microtarjeta para México',
+        interactive: 'microtarjeta-mx',
       },
     ],
   },
