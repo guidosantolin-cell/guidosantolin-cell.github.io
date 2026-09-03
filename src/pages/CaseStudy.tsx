@@ -298,7 +298,9 @@ export function CaseStudy() {
       {project.benchmark && (
         <div className="mt-16">
           <h2 className="text-2xl font-semibold text-neutral-900">Benchmark</h2>
-          <p className="mt-3 text-neutral-600">{project.benchmark.intro}</p>
+          {project.benchmark.intro && (
+            <p className="mt-3 text-neutral-600">{project.benchmark.intro}</p>
+          )}
 
           {project.benchmark.image && (
             <img
@@ -325,6 +327,11 @@ export function CaseStudy() {
             </div>
           )}
 
+          {project.benchmark.resultsTitle && (
+            <p className="mt-6 text-xl font-semibold text-neutral-900">
+              {project.benchmark.resultsTitle}
+            </p>
+          )}
           {project.benchmark.findings && (
             <ul className="mt-4 list-disc space-y-2 pl-5 text-neutral-600">
               {project.benchmark.findings.map((item) => (

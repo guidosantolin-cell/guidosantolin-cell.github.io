@@ -40,9 +40,10 @@ export type Challenge = {
 }
 
 export type Benchmark = {
-  intro: string
+  intro?: string
   image?: string
   images?: { src: string; caption?: string }[]
+  resultsTitle?: string
   findings?: string[]
   recommendationsIntro?: string
   recommendations?: string[]
@@ -337,27 +338,16 @@ export const projects: CaseStudy[] = [
       ],
     },
     benchmark: {
-      intro:
-        'Realizamos un benchmark con el objetivo de obtener información sobre el resto de los players del mercado y analizar la existencia de posibles mejoras a incorporar en nuestro flujo.',
       image: '/case-studies/benchmark/referencia-grafica.png',
+      resultsTitle: 'Resultados Benchmark',
       findings: [
-        '**5 de 7 players** analizados te dan una tarjeta virtual al momento de abrir una cuenta. Luego, el usuario puede pedir una tarjeta física o no.',
-        'En todos los players sucede que **cuando el usuario pide la tarjeta física, únicamente se le pide completar la dirección de entrega**.',
-        'Las VP se presentan al principio durante el proceso de apertura de la cuenta o bien, la primera vez que ingresó al sector de su Tarjeta de Débito.',
-        'Incluso **las VP de la TF se presentan al principio del flujo.**',
-        'Entre la **VP se destacan**: Gratuidad, Facilidad (Simple de usar / Comprar es fácil), TV para compras online y TF para compras presenciales.',
-        '**Durante el proceso de solicitud de la física ningún player presenta VP.**',
-        '**1 de 7 players no diferencia entre física y virtual** y se refiere a ambas como "la tarjeta".',
-        '**6 de 7 players presentan a la tarjeta virtual y física como parte de único producto** que es la tarjeta de débito o prepaga.',
+        '5 de 7 players analizados te dan una tarjeta virtual al momento de abrir una cuenta. Luego, el usuario puede pedir una tarjeta física o no.',
+        'En todos los players sucede que cuando el usuario pide la tarjeta física, únicamente se le pide completar la dirección de entrega.',
+        'Las value props se presentan al principio durante el proceso de apertura de la cuenta o bien, la primera vez que ingresó al sector de su Tarjeta de Débito.',
+        'Entre la VP se destacan: Gratuidad, Facilidad (Simple de usar / Comprar es fácil), TV para compras online y TF para compras presenciales.',
+        'Durante el proceso de solicitud de la física ningún player presenta value props.',
+        '6 de 7 players presentan a la tarjeta virtual y física como parte de único producto que es la tarjeta de débito o prepaga.',
         'A pesar de presentarlas como parte de un mismo producto, 6 de 7 players, también las diferencian entre física y virtual.',
-      ],
-      recommendationsIntro: 'Teniendo en cuenta los insights anteriores, recomendamos:',
-      recommendations: [
-        'Hablar de la tarjeta prepaga como un mismo producto que tiene dos modalidades de uso, virtual o física.',
-        'Presentar todas las VP en el mismo momento, son VP de un mismo producto que es la Tarjeta Prepaga Mercado Pago.',
-        'Entre las VP a destacar, sobresalen la gratuidad y facilidad de uso.',
-        'El proceso de solicitud de la tarjeta física se puede separar para una segunda instancia pero la carga cognitiva en ese proceso debe ser mínima.',
-        'Si tomamos en cuenta los players analizados, otorgar automáticamente una tarjeta virtual a los usuarios que abren una cuenta en MP parece no ser una práctica desconocida o extraña.',
       ],
     },
     contentExploration: [
