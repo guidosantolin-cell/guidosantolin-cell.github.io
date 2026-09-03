@@ -113,7 +113,8 @@ export type CaseStudy = {
   period: string
   tools: string[]
   accent: 'pink' | 'indigo' | 'yellow'
-  coverImage: string
+  coverImage?: string
+  coverComponent?: 'minicard-feedback'
   coverCaption?: string
   team?: { role: string; name: string }[]
   challenge?: Challenge
@@ -261,7 +262,7 @@ export const projects: CaseStudy[] = [
     period: PLACEHOLDER,
     tools: ['Figma'],
     accent: 'yellow',
-    coverImage: '/case-studies/users-tc-otra-cuenta/resultado-overview.png',
+    coverComponent: 'minicard-feedback',
     challenge: {
       intro: [
         'Solo en Argentina, hay más de 8.500 errores por trimestre en el flujo de pago (código CCC07). Este número es solo la punta del iceberg — no contabiliza fallas en Engagement, Statements o Collection.',

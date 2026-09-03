@@ -9,6 +9,7 @@ import { MovementsExplorer } from '../components/MovementsExplorer'
 import { MapDrawReveal } from '../components/MapDrawReveal'
 import { MaxwellConversation } from '../components/MaxwellConversation'
 import { maxwellConversations } from '../data/maxwellConversations'
+import { MinicardFeedbackCover } from '../components/MinicardFeedbackCover'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -57,11 +58,19 @@ export function CaseStudy() {
       </div>
 
       <div className="mt-10">
-        <img
-          src={project.coverImage}
-          alt={`Vista general de ${project.title}`}
-          className="w-full rounded-xl border border-neutral-100"
-        />
+        {project.coverComponent === 'minicard-feedback' ? (
+          <div className="overflow-hidden rounded-xl border border-neutral-100">
+            <MinicardFeedbackCover />
+          </div>
+        ) : (
+          project.coverImage && (
+            <img
+              src={project.coverImage}
+              alt={`Vista general de ${project.title}`}
+              className="w-full rounded-xl border border-neutral-100"
+            />
+          )
+        )}
         {project.coverCaption && (
           <p className="mt-2 text-xs text-neutral-400">{project.coverCaption}</p>
         )}
