@@ -42,7 +42,7 @@ function WidgetCard({
   if (spec.kind === 'promo') {
     return (
       <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
-        <div className="flex items-start gap-2">
+        <div className="flex items-center gap-2">
           <span className="inline-block shrink-0 rounded-full bg-rose-500 px-2.5 py-1 text-xs font-semibold text-white">
             {spec.badge}
           </span>
