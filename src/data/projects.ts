@@ -284,14 +284,6 @@ export const projects: CaseStudy[] = [
     customSections: [
       {
         title: 'Exploramos propuestas',
-        body:
-          'Para cada caso de uso (TC cancelada, TC vigente, oferta vigente) explorámos 2 versiones de copy para la pantalla de freno. Acuerdos post weekly:',
-        items: [
-          'Caso oferta de TC en otra cuenta: por limitaciones técnicas, no podemos traer el mail al cuerpo del feedback screen.',
-          'Caso TC vigente en otra cuenta: trabajar 2 propuestas (una con mail y otra sin mail), ya que con la nueva app las cuentas van a ser cuentas validadas.',
-          'CTA: en esta primera instancia, que no sea inteligente — que el usuario decida si quiere cerrar la cuenta e ingresar nuevamente con otro mail.',
-          'KYC: no sumar referencia de KYC al feedback screen.',
-        ],
         images: [
           { src: '/case-studies/users-tc-otra-cuenta/abordajes-claude.png', caption: 'Abordajes con Claude' },
           { src: '/case-studies/users-tc-otra-cuenta/refinamiento-aleph.png', caption: 'Refinamiento con Aleph' },
