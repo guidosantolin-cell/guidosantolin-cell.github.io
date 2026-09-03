@@ -333,16 +333,8 @@ export const projects: CaseStudy[] = [
     coverComponent: 'hand-card',
     challenge: {
       intro: [
-        'Como la experiencia de adquisición de la tarjeta de crédito de MLA tiene un diseño más alineado a una experiencia WOW, se decidió implementar oportunidades de mejora en el flujo de adquisición actual de la tarjeta prepaga y, así, lograr una mayor consistencia entre ambas experiencias, respetando los estándares CRAFT.',
-        'En una primera instancia, se trabajó sobre el flujo de adquisición de la Tarjeta Prepaga física.',
+        'Se decidió rediseñar la experiencia de adquisición de la Tarjeta Prepaga física para convertirla en un flujo alineado con la experiencia WOW.',
       ],
-      content: [
-        'Sumar una nueva arquitectura de la información.',
-        'Desarrollar un nuevo storytelling que permita reducir la cantidad de pantallas.',
-        'Mantener consistencia con la historia de la tarjeta virtual, sin afectar los estándares de calidad.',
-      ],
-      solution:
-        'Rediseñar la experiencia de adquisición de la Tarjeta Prepaga física para convertirla en un flujo alineado con la experiencia WOW.',
     },
     benchmark: {
       intro:
