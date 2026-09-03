@@ -225,6 +225,26 @@ export function CaseStudy() {
                   className="mt-3 w-full rounded-xl border border-neutral-100"
                 />
               )}
+              {section.images && (
+                <div className="mt-3 grid gap-4 sm:grid-cols-3">
+                  {section.images.map((img) => (
+                    <div key={img.src}>
+                      <div className="h-56 overflow-hidden rounded-xl border border-neutral-100">
+                        <img
+                          src={img.src}
+                          alt={img.caption ?? section.title}
+                          className="w-full object-cover object-top"
+                        />
+                      </div>
+                      {img.caption && (
+                        <p className="mt-1.5 text-center text-xs text-neutral-500">
+                          {img.caption}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
               {section.note && <p className="mt-3 text-xs text-neutral-400">{section.note}</p>}
             </div>
           ))}

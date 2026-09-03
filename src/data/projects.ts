@@ -74,6 +74,7 @@ export type CustomSection = {
   items?: string[]
   video?: ExplorationVideo
   image?: string
+  images?: { src: string; caption?: string }[]
   note?: string
 }
 
@@ -291,7 +292,11 @@ export const projects: CaseStudy[] = [
           'CTA: en esta primera instancia, que no sea inteligente — que el usuario decida si quiere cerrar la cuenta e ingresar nuevamente con otro mail.',
           'KYC: no sumar referencia de KYC al feedback screen.',
         ],
-        image: '/case-studies/users-tc-otra-cuenta/propuestas.png',
+        images: [
+          { src: '/case-studies/users-tc-otra-cuenta/abordajes-claude.png', caption: 'Abordajes con Claude' },
+          { src: '/case-studies/users-tc-otra-cuenta/refinamiento-aleph.png', caption: 'Refinamiento con Aleph' },
+          { src: '/case-studies/users-tc-otra-cuenta/propuestas.png', caption: 'Propuestas post weekly' },
+        ],
       },
     ],
     contentExploration: [],
