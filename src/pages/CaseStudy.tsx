@@ -523,6 +523,7 @@ export function CaseStudy() {
               </p>
               <StaggerReveal
                 as="div"
+                loop
                 className="mt-3 space-y-4 border-l-2 border-neutral-100 pl-4"
                 items={ba.notes.map((note) => (
                   <div key={note.title}>

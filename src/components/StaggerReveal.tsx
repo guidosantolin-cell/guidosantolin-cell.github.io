@@ -5,10 +5,12 @@ export function StaggerReveal({
   items,
   className,
   as = 'ul',
+  loop = false,
 }: {
   items: ReactNode[]
   className?: string
   as?: 'ul' | 'div'
+  loop?: boolean
 }) {
   const ref = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(false)
@@ -37,7 +39,7 @@ export function StaggerReveal({
       {items.map((item, i) => (
         <Item
           key={i}
-          className={`stagger-item ${visible ? 'stagger-in' : ''}`}
+          className={`stagger-item ${visible ? (loop ? 'stagger-loop' : 'stagger-in') : ''}`}
           style={{ animationDelay: `${i * 180}ms` }}
         >
           {item}
