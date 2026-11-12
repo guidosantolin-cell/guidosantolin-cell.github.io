@@ -114,6 +114,7 @@ export type CaseStudy = {
   product: string
   countries: string
   period: string
+  status?: string
   tools: string[]
   accent: 'pink' | 'indigo' | 'yellow'
   coverImage?: string
@@ -135,6 +136,7 @@ export type CaseStudy = {
   beforeAfter: BeforeAfter[]
   beforeAfterTitle?: string
   prototypes?: Prototype[]
+  prototypeGroups?: { title: string; prototypes: Prototype[] }[]
   outcome?: string
   outcomeVideo?: ExplorationVideo
   outcomeGroups?: { title: string; images: { src: string; caption?: string }[] }[]
@@ -143,6 +145,13 @@ export type CaseStudy = {
   movementsExplorer?: boolean
   sheetLink?: string
   handoffLink?: string
+  flowVariantsTitle?: string
+  flowVariants?: {
+    title: string
+    description: string
+    image: string
+    handoffLink: string
+  }[]
 }
 
 export const accentClasses: Record<CaseStudy['accent'], { bg: string; text: string }> = {
@@ -169,6 +178,12 @@ export const projects: CaseStudy[] = [
         'Integramos los flujos de solicitud para que la persona usuaria adquiera la Tarjeta de Crédito Mercado Pago directamente desde MAGO, en simples pasos.',
       ],
     },
+    customSections: [
+      {
+        title: 'Del recorrido principal a las especificaciones',
+        body: 'El handoff representa el recorrido principal con y sin KYC6. Para mantener legible el flujo de ejemplo, las variantes adicionales de cada instancia conversacional se documentan en las especificaciones, según la indicación incluida en los tres flujos.',
+      },
+    ],
     contentExplorationTitle: 'Exploraciones',
     benchmark: {
       intro:
@@ -206,18 +221,49 @@ export const projects: CaseStudy[] = [
       },
     ],
     beforeAfter: [],
-    prototypes: [
+    prototypeGroups: [
       {
-        title: 'Adqui Pre Scored BAU',
-        interactive: 'tc-mla',
+        title: 'Tarjeta Gold',
+        prototypes: [
+          {
+            title: 'BAU',
+            interactive: 'tc-mla',
+          },
+          {
+            title: 'Meli+',
+            interactive: 'microtarjeta-mx',
+          },
+          {
+            title: 'Free Trial',
+            interactive: 'tc-free-trial',
+          },
+        ],
       },
       {
-        title: 'Adqui Microtarjeta Meli+',
-        interactive: 'microtarjeta-mx',
+        title: 'Tarjeta Platinum - only MLB',
+        prototypes: [
+          {
+            title: 'BAU',
+            description: 'Recorrido principal sin KYC6. Los campos entre llaves son datos variables del handoff.',
+            interactive: 'platinum-bau-mlb',
+          },
+        ],
       },
+    ],
+    outcome: 'Entregué el handoff de la experiencia de adquisición de Platinum para Brasil, con los flujos BAU, Free Trial y Meli+. La entrega incluye el recorrido principal con y sin KYC6 y las instancias de revisión y confirmación del pedido. El estado documentado corresponde a la entrega de diseño; todavía no se incorporaron resultados de implementación ni métricas de uso.',
+    outcomeGroups: [
       {
-        title: 'Adqui TC Free Trial',
-        interactive: 'tc-free-trial',
+        title: 'Revisar las condiciones antes de pedir la tarjeta',
+        images: [
+          {
+            src: '/case-studies/mago-platinum/confirmacion-bau.png',
+            caption: 'BAU: límite, anualidad, vencimiento, envío y aceptación de condiciones.',
+          },
+          {
+            src: '/case-studies/mago-platinum/confirmacion-meli-plus.png',
+            caption: 'Meli+: el resumen incorpora el cashback de la propuesta.',
+          },
+        ],
       },
     ],
     handoffLink:
