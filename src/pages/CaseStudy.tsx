@@ -33,10 +33,15 @@ export function CaseStudy() {
   return (
     <main className="mx-auto max-w-3xl px-6 pt-16 pb-24">
       <div>
-        <p className="text-sm text-neutral-400">{project.period}</p>
+        {project.period && <p className="text-sm text-neutral-400">{project.period}</p>}
         <h1 className="mt-2 text-4xl font-semibold text-neutral-900">{project.title}</h1>
         {project.subtitle && <p className="mt-2 text-lg text-neutral-500">{project.subtitle}</p>}
         <div className="mt-4 flex flex-wrap gap-2 text-sm text-neutral-500">
+          {project.status && (
+            <span className="rounded-full bg-emerald-50 px-3 py-1 text-emerald-800">
+              {project.status}
+            </span>
+          )}
           <span className={`rounded-full px-3 py-1 ${accent.bg} ${accent.text}`}>
             {project.product}
           </span>
@@ -537,45 +542,90 @@ export function CaseStudy() {
         </div>
       ))}
 
-      {project.prototypes && (
+      {(project.prototypes || project.prototypeGroups) && (
         <div className="mt-16">
           <h2 className="text-2xl font-semibold text-neutral-900">Prototipos</h2>
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {project.prototypes.map((proto) => {
-              const naturalHeight = proto.interactive ? 624 : 280
-              const scale = 0.46
-              return (
-                <div key={proto.title} className="group relative">
-                  <p className="font-medium text-neutral-900">{proto.title}</p>
-                  {proto.description && (
-                    <p className="mt-1 text-sm text-neutral-600">{proto.description}</p>
-                  )}
-                  <div className="relative mt-3" style={{ height: naturalHeight * scale }}>
-                    <div className="proto-preview absolute left-0 top-0 w-[360px] origin-top-left group-hover:z-30 group-hover:shadow-2xl">
-                      {proto.video && (
-                        <Filmstrip
-                          src={proto.video.src}
-                          alt={proto.title}
-                          orientation={proto.video.orientation}
-                        />
+          {(project.prototypeGroups ?? [{ title: '', prototypes: project.prototypes ?? [] }]).map((group) => (
+            <section key={group.title} className="mt-8">
+              {group.title && (
+                <h3 className="text-xl font-semibold text-neutral-900">{group.title}</h3>
+              )}
+              <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                {group.prototypes.map((proto) => {
+                  const naturalHeight = proto.interactive ? 624 : 280
+                  const scale = 0.46
+                  return (
+                    <div key={proto.title} className="group relative">
+                      <p className="font-medium text-neutral-900">{proto.title}</p>
+                      {proto.description && (
+                        <p className="mt-1 text-sm text-neutral-600">{proto.description}</p>
                       )}
-                      {proto.image && (
-                        <img
-                          src={proto.image}
-                          alt={proto.title}
-                          className="w-full rounded-xl border border-neutral-100"
-                        />
-                      )}
-                      {proto.interactive && (
-                        <MaxwellConversation config={maxwellConversations[proto.interactive]} />
-                      )}
+                      <div className="relative mt-3" style={{ height: naturalHeight * scale }}>
+                        <div className="proto-preview absolute left-0 top-0 w-[360px] origin-top-left group-hover:z-30 group-hover:shadow-2xl">
+                          {proto.video && (
+                            <Filmstrip
+                              src={proto.video.src}
+                              alt={proto.title}
+                              orientation={proto.video.orientation}
+                            />
+                          )}
+                          {proto.image && (
+                            <img
+                              src={proto.image}
+                              alt={proto.title}
+                              className="w-full rounded-xl border border-neutral-100"
+                            />
+                          )}
+                          {proto.interactive && (
+                            <MaxwellConversation config={maxwellConversations[proto.interactive]} />
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+                  )
+                })}
+              </div>
+            </section>
+          ))}
         </div>
+      )}
+
+      {project.flowVariants && (
+        <section className="mt-16" aria-labelledby="flow-variants-title">
+          <h2 id="flow-variants-title" className="text-2xl font-semibold text-neutral-900">
+            {project.flowVariantsTitle ?? 'Variantes de la conversación'}
+          </h2>
+          <p className="mt-3 text-neutral-600">
+            Mensajes de oferta del handoff. Los campos entre llaves representan datos
+            variables de cada persona. Cada enlace abre el flujo completo en Figma.
+          </p>
+          <div className="mt-6 grid items-start gap-8 sm:grid-cols-3">
+            {project.flowVariants.map((variant) => (
+              <figure key={variant.title} className="mx-auto w-full max-w-[360px]">
+                <h3 className="text-lg font-medium text-neutral-900">{variant.title}</h3>
+                <img
+                  src={variant.image}
+                  alt={`Mensaje de oferta de Platinum en portugués — ${variant.title}`}
+                  width={360}
+                  height={800}
+                  loading="lazy"
+                  className="mt-3 h-auto w-full rounded-xl border border-neutral-200"
+                />
+                <figcaption className="mt-3 text-sm text-neutral-600">
+                  {variant.description}
+                </figcaption>
+                <a
+                  href={variant.handoffLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded text-sm font-medium text-indigo-700 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+                >
+                  Ver flujo {variant.title} en Figma <span aria-hidden>↗</span>
+                </a>
+              </figure>
+            ))}
+          </div>
+        </section>
       )}
 
       {project.outcome && (

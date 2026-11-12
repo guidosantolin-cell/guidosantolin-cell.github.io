@@ -2,16 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import type { MaxwellConversationConfig, WidgetSpec } from '../data/maxwellConversations'
 
 function renderRich(text: string) {
-  const pattern = /\{\{(.+?)\}\}/g
-  return text.split(pattern).map((part, i) =>
-    i % 2 === 1 ? (
-      <span key={i} className="cursor-pointer text-indigo-600 underline underline-offset-2">
-        {part}
-      </span>
-    ) : (
-      part
-    ),
-  )
+  return text.split(/(\{\{.+?\}\}|\*\*.+?\*\*)/g).map((part, i) => {
+    if (part.startsWith('{{') && part.endsWith('}}')) {
+      return <span key={i} className="cursor-pointer text-indigo-600 underline underline-offset-2">{part.slice(2, -2)}</span>
+    }
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>
+    }
+    return part
+  })
 }
 
 function Footer({ segments }: { segments: { text: string; link?: boolean }[] }) {
@@ -39,6 +38,8 @@ function WidgetCard({
   disabled: boolean
   onClick: () => void
 }) {
+  const [accepted, setAccepted] = useState(false)
+
   if (spec.kind === 'promo') {
     return (
       <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
@@ -95,12 +96,25 @@ function WidgetCard({
           </div>
         ))}
       </dl>
-      <p className="mt-3 text-xs text-neutral-500">
-        <Footer segments={spec.footer} />
-      </p>
+      {spec.requiresConsent ? (
+        <label className="mt-3 flex cursor-pointer items-start gap-2 text-xs text-neutral-500">
+          <input
+            type="checkbox"
+            checked={accepted}
+            disabled={disabled}
+            onChange={(event) => setAccepted(event.target.checked)}
+            className="mt-0.5 h-4 w-4 shrink-0 accent-indigo-600"
+          />
+          <span><Footer segments={spec.footer} /></span>
+        </label>
+      ) : (
+        <p className="mt-3 text-xs text-neutral-500">
+          <Footer segments={spec.footer} />
+        </p>
+      )}
       <button
         onClick={onClick}
-        disabled={disabled}
+        disabled={disabled || (spec.requiresConsent && !accepted)}
         className="mt-4 w-full rounded-full bg-indigo-600 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-default disabled:opacity-60"
       >
         {spec.cta}
@@ -191,13 +205,13 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
   const visible = script.slice(0, revealedCount)
 
   return (
-    <div className="mx-auto w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-neutral-200 bg-white shadow-sm">
+    <div lang={config.language ?? 'es'} className="mx-auto w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-neutral-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b border-neutral-100 px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-600 text-xs font-semibold text-white">
             M
           </div>
-          <p className="text-sm font-medium text-neutral-900">Maxwell</p>
+          <p className="text-sm font-medium text-neutral-900">{config.assistantName ?? 'Maxwell'}</p>
         </div>
         <button
           onClick={play}
@@ -256,7 +270,7 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
       <div className="border-t border-neutral-100 p-3">
         <div className="flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm text-neutral-400">
           <span>+</span>
-          <span className="flex-1">Preguntale al asistente</span>
+          <span className="flex-1">{config.language === 'pt-BR' ? 'Pergunte ao assistente' : 'Preguntale al asistente'}</span>
         </div>
       </div>
     </div>
