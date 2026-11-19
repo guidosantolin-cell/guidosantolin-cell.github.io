@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MaxwellConversationConfig, WidgetSpec } from '../data/maxwellConversations'
 
+type WidgetChoice = 'accept' | 'decline'
+
 function renderRich(text: string) {
   return text.split(/(\{\{.+?\}\}|\*\*.+?\*\*)/g).map((part, i) => {
     if (part.startsWith('{{') && part.endsWith('}}')) {
@@ -33,23 +35,63 @@ function WidgetCard({
   spec,
   disabled,
   onClick,
+  onDecline,
+  declineCta,
 }: {
   spec: WidgetSpec
   disabled: boolean
   onClick: () => void
+  onDecline?: () => void
+  declineCta?: string
 }) {
   const [accepted, setAccepted] = useState(false)
+  const footer = spec.requiresConsent ? (
+    <label className="mt-3 flex cursor-pointer items-start gap-2 text-xs text-neutral-500">
+      <input
+        type="checkbox"
+        checked={accepted}
+        disabled={disabled}
+        onChange={(event) => setAccepted(event.target.checked)}
+        className="mt-0.5 h-4 w-4 shrink-0 accent-indigo-600"
+      />
+      <span><Footer segments={spec.footer} /></span>
+    </label>
+  ) : (
+    <p className="mt-3 text-xs text-neutral-500"><Footer segments={spec.footer} /></p>
+  )
 
   if (spec.kind === 'promo') {
     return (
-      <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
+      <>
+      <div className={`mt-1 w-full rounded-2xl border border-neutral-200 bg-white shadow-md ${spec.features ? 'p-5' : 'p-4'}`}>
         <div className="flex items-center gap-2">
+          {spec.badgeImage ? (
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-neutral-200">
+              <img src={spec.badgeImage} alt={spec.badge} />
+            </span>
+          ) : (
           <span className="inline-block shrink-0 rounded-full bg-rose-500 px-2.5 py-1 text-xs font-semibold text-white">
             {spec.badge}
           </span>
+          )}
           <p className="text-base font-semibold text-neutral-900">{spec.title}</p>
         </div>
-        <p className="mt-2 text-sm text-neutral-600">{spec.body}</p>
+        {spec.body && <p className="mt-2 text-sm text-neutral-600">{spec.body}</p>}
+        {spec.features && (
+          <ul className="mt-5 space-y-3 text-sm text-neutral-800">
+            {spec.features.map((feature) => (
+              <li key={feature.title} className="flex items-start gap-2">
+                {feature.icon ? (
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center"><img src={feature.icon} alt="" /></span>
+                ) : <span className="w-5 shrink-0" aria-hidden />}
+                <div>
+                  <p className="font-semibold">{feature.title}</p>
+                  {feature.description && <p className="mt-0.5">{feature.description}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="mt-3 flex items-center justify-between">
           <p
             className={`text-base font-semibold text-neutral-900 ${
@@ -68,24 +110,34 @@ function WidgetCard({
           )}
         </div>
         {spec.note && <p className="mt-1 text-sm text-neutral-500">{spec.note}</p>}
-        <p className="mt-3 text-xs text-neutral-500">
-          <Footer segments={spec.footer} />
-        </p>
+        {footer}
         <button
           onClick={onClick}
-          disabled={disabled}
+          disabled={disabled || (spec.requiresConsent && !accepted)}
           className="mt-4 w-full rounded-full bg-indigo-600 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-default disabled:opacity-60"
         >
           {spec.cta}
         </button>
       </div>
+      {onDecline && (
+        <button
+          type="button"
+          onClick={onDecline}
+          disabled={disabled}
+          className="mt-2 inline-flex w-fit items-center gap-1 rounded-full bg-neutral-100 px-2 py-1 text-sm font-semibold text-neutral-900 disabled:opacity-60"
+        >
+          {spec.declineIcon && <img src={spec.declineIcon} alt="" />}
+          {declineCta}
+        </button>
+      )}
+      </>
     )
   }
 
   return (
     <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
-      <div className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200">
-        <span className="text-xs">💳</span>
+      <div className={`flex items-center justify-center rounded-full border border-neutral-200 ${spec.iconSrc ? 'h-12 w-12' : 'h-8 w-8'}`}>
+        {spec.iconSrc ? <img src={spec.iconSrc} alt="" /> : <span className="text-xs">💳</span>}
       </div>
       <p className="mt-3 text-base font-semibold text-neutral-900">{spec.title}</p>
       <dl className="mt-3 divide-y divide-neutral-100 text-sm">
@@ -96,22 +148,7 @@ function WidgetCard({
           </div>
         ))}
       </dl>
-      {spec.requiresConsent ? (
-        <label className="mt-3 flex cursor-pointer items-start gap-2 text-xs text-neutral-500">
-          <input
-            type="checkbox"
-            checked={accepted}
-            disabled={disabled}
-            onChange={(event) => setAccepted(event.target.checked)}
-            className="mt-0.5 h-4 w-4 shrink-0 accent-indigo-600"
-          />
-          <span><Footer segments={spec.footer} /></span>
-        </label>
-      ) : (
-        <p className="mt-3 text-xs text-neutral-500">
-          <Footer segments={spec.footer} />
-        </p>
-      )}
+      {footer}
       <button
         onClick={onClick}
         disabled={disabled || (spec.requiresConsent && !accepted)}
@@ -125,13 +162,14 @@ function WidgetCard({
 
 export function MaxwellConversation({ config }: { config: MaxwellConversationConfig }) {
   const { script } = config
+  const [activeScript, setActiveScript] = useState(script)
   const [revealedCount, setRevealedCount] = useState(0)
   const [typing, setTyping] = useState(false)
-  const [resolvedWidgets, setResolvedWidgets] = useState<Record<number, boolean>>({})
+  const [resolvedWidgets, setResolvedWidgets] = useState<Record<number, WidgetChoice>>({})
   const scrollRef = useRef<HTMLDivElement>(null)
   const timers = useRef<number[]>([])
   const runId = useRef(0)
-  const resolveClick = useRef<(() => void) | null>(null)
+  const resolveClick = useRef<((choice: WidgetChoice) => void) | null>(null)
 
   const wait = (ms: number) =>
     new Promise<void>((resolve) => {
@@ -147,12 +185,14 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
     setRevealedCount(0)
     setTyping(false)
     setResolvedWidgets({})
+    setActiveScript(script)
 
     ;(async () => {
+      let playbackScript = script
       await wait(400)
-      for (let i = 0; i < script.length; i++) {
+      for (let i = 0; i < playbackScript.length; i++) {
         if (runId.current !== id) return
-        const turn = script[i]
+        const turn = playbackScript[i]
 
         if (turn.from === 'maxwell') {
           setTyping(true)
@@ -164,10 +204,14 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
         setRevealedCount(i + 1)
 
         if (turn.from === 'widget') {
-          await new Promise<void>((resolve) => {
+          const choice = await new Promise<WidgetChoice>((resolve) => {
             resolveClick.current = resolve
           })
           if (runId.current !== id) return
+          if (choice === 'decline' && turn.decline) {
+            playbackScript = [...playbackScript.slice(0, i + 1), ...turn.decline.continuation]
+            setActiveScript(playbackScript)
+          }
           setTyping(true)
           await wait(900)
           if (runId.current !== id) return
@@ -194,15 +238,15 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' })
   }, [revealedCount, typing, resolvedWidgets])
 
-  const handleWidgetClick = (index: number) => {
+  const handleWidgetClick = (index: number, choice: WidgetChoice = 'accept') => {
     if (resolvedWidgets[index] || !resolveClick.current) return
-    setResolvedWidgets((prev) => ({ ...prev, [index]: true }))
+    setResolvedWidgets((prev) => ({ ...prev, [index]: choice }))
     const resolve = resolveClick.current
     resolveClick.current = null
-    resolve()
+    resolve(choice)
   }
 
-  const visible = script.slice(0, revealedCount)
+  const visible = activeScript.slice(0, revealedCount)
 
   return (
     <div lang={config.language ?? 'es'} className="mx-auto w-full max-w-[360px] overflow-hidden rounded-[2rem] border border-neutral-200 bg-white shadow-sm">
@@ -234,10 +278,12 @@ export function MaxwellConversation({ config }: { config: MaxwellConversationCon
                   spec={turn.spec}
                   disabled={done}
                   onClick={() => handleWidgetClick(i)}
+                  onDecline={turn.decline ? () => handleWidgetClick(i, 'decline') : undefined}
+                  declineCta={turn.decline?.cta}
                 />
                 {done && (
                   <div className="max-w-[80%] animate-[fadeIn_0.3s_ease] self-end whitespace-pre-line rounded-2xl rounded-br-sm bg-indigo-600 px-3.5 py-2.5 text-sm text-white">
-                    {turn.echoText}
+                    {resolvedWidgets[i] === 'decline' ? turn.decline?.echoText : turn.echoText}
                   </div>
                 )}
               </div>

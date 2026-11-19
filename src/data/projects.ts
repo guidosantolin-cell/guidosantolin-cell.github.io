@@ -247,6 +247,11 @@ export const projects: CaseStudy[] = [
             description: 'Recorrido principal sin KYC6. Los campos entre llaves son datos variables del handoff.',
             interactive: 'platinum-bau-mlb',
           },
+          {
+            title: 'Free Trial',
+            description: 'Recorrido principal sin KYC6, con la opción de agregar Meli+ o continuar sin el beneficio.',
+            interactive: 'platinum-free-trial-mlb',
+          },
         ],
       },
     ],

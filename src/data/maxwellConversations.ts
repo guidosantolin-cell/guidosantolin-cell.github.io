@@ -1,3 +1,5 @@
+import { platinumFreeTrial } from './platinumFreeTrial'
+
 export type WidgetRow = { label: string; value: string }
 export type FooterSegment = { text: string; link?: boolean }
 
@@ -8,6 +10,7 @@ export type SummaryWidget = {
   footer: FooterSegment[]
   cta: string
   requiresConsent?: boolean
+  iconSrc?: string
 }
 
 export type PromoWidget = {
@@ -22,6 +25,10 @@ export type PromoWidget = {
   note?: string
   footer: FooterSegment[]
   cta: string
+  requiresConsent?: boolean
+  badgeImage?: string
+  features?: { title: string; description?: string; icon?: string }[]
+  declineIcon?: string
 }
 
 export type WidgetSpec = SummaryWidget | PromoWidget
@@ -29,7 +36,12 @@ export type WidgetSpec = SummaryWidget | PromoWidget
 export type Turn =
   | { from: 'user'; text: string }
   | { from: 'maxwell'; text: string }
-  | { from: 'widget'; spec: WidgetSpec; echoText: string }
+  | {
+      from: 'widget'
+      spec: WidgetSpec
+      echoText: string
+      decline?: { cta: string; echoText: string; continuation: Turn[] }
+    }
 
 export type MaxwellConversationConfig = {
   script: Turn[]
@@ -38,6 +50,7 @@ export type MaxwellConversationConfig = {
 }
 
 export const maxwellConversations = {
+  'platinum-free-trial-mlb': platinumFreeTrial,
   'platinum-bau-mlb': {
     language: 'pt-BR',
     assistantName: 'MAGO',
@@ -228,3 +241,4 @@ export const maxwellConversations = {
 } satisfies Record<string, MaxwellConversationConfig>
 
 export type MaxwellConversationId = keyof typeof maxwellConversations
+
