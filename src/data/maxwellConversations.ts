@@ -50,6 +50,49 @@ export type MaxwellConversationConfig = {
 }
 
 export const maxwellConversations = {
+  'platinum-meli-plus-mlb': {
+    language: 'pt-BR',
+    assistantName: 'MAGO',
+    script: [
+      { from: 'user', text: 'Quero pedir um cartão de crédito' },
+      {
+        from: 'maxwell',
+        text: 'Olá, {nombre user}! Você tem um **cartão de crédito Platinum** à sua espera, com estes benefícios:\n\n• **Limite de R$ {limit_amount}**\n\n• **Sem anuidade**\n\n• **Até {n} parcelas sem juros no Mercado Livre**\n\n• **Benefícios de viagem Visa Platinum**\n\nAlém disso, com o Meli+, você também tem:\n\n• **Até {4}% de cashback nas suas compras**\n\n• **Rendimento de {130}% do CDI em Reservas**\n\nVamos seguir com a solicitação?',
+      },
+      { from: 'user', text: 'Sim, vamos seguir' },
+      {
+        from: 'maxwell',
+        text: 'Ótimo! O endereço para envio do cartão físico é **{address}**.\n\nEstá certo?',
+      },
+      { from: 'user', text: 'Sim, está certo' },
+      {
+        from: 'widget',
+        echoText: 'Pedir cartão grátis',
+        spec: {
+          kind: 'summary',
+          title: 'Você vai pedir o cartão Platinum',
+          iconSrc: '/case-studies/mago-platinum/free-trial-assets/card.svg',
+          rows: [
+            { label: 'Limite', value: 'R$ {limit_amount}' },
+            { label: 'Anuidade', value: 'Grátis' },
+            { label: 'Cashback', value: 'Até {n}% em suas compras' },
+            { label: 'Vencimento', value: 'Dia {day} de cada mês' },
+            { label: 'Envio do cartão', value: '{address}' },
+          ],
+          footer: [
+            { text: 'Autorizo a consulta ao SCR, solicito o cartão de crédito e aceito os ' },
+            { text: 'Termos e condições.', link: true },
+          ],
+          cta: 'Pedir cartão grátis',
+          requiresConsent: true,
+        },
+      },
+      {
+        from: 'maxwell',
+        text: 'Perfeito! **Seu cartão de crédito Platinum está pronto**. 🎉\n\n• Comece a ganhar cashback comprando online com os dados do seu {{cartão virtual}}.\n\n• Conheça os {{benefícios exclusivos}}.\n\nPrecisa de mais alguma coisa?',
+      },
+    ],
+  },
   'platinum-free-trial-mlb': platinumFreeTrial,
   'platinum-bau-mlb': {
     language: 'pt-BR',
