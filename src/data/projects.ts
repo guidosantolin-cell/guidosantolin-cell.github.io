@@ -252,6 +252,11 @@ export const projects: CaseStudy[] = [
             description: 'Recorrido principal sin KYC6, con la opción de agregar Meli+ o continuar sin el beneficio.',
             interactive: 'platinum-free-trial-mlb',
           },
+          {
+            title: 'Meli+',
+            description: 'Recorrido principal sin KYC6 para quienes ya tienen Meli+, con sus beneficios en la oferta y el resumen.',
+            interactive: 'platinum-meli-plus-mlb',
+          },
         ],
       },
     ],
