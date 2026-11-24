@@ -276,6 +276,16 @@ export const projects: CaseStudy[] = [
                 description: 'Upgrade gratuito a Platinum. Recorrido principal sin KYC6, con confirmación de dirección y revisión del cambio.',
                 interactive: 'platinum-upgrade-bau-mlb',
               },
+              {
+                title: 'Free Trial',
+                description: 'Upgrade gratuito a Platinum, con la opción de agregar Meli+ o continuar sin el beneficio. Recorrido principal sin KYC6.',
+                interactive: 'platinum-upgrade-free-trial-mlb',
+              },
+              {
+                title: 'Meli+',
+                description: 'Upgrade gratuito a Platinum para quienes ya tienen Meli+, con cashback en la oferta y el resumen. Recorrido principal sin KYC6.',
+                interactive: 'platinum-upgrade-meli-plus-mlb',
+              },
             ],
           },
         ],
