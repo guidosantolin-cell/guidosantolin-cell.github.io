@@ -189,3 +189,102 @@ body {
 .group:hover .proto-preview {
   transform: scale(1);
 }
+
+/* AI Experience Library — Revisa y confirma, 60808:29734.
+   Product details and consent requirements remain specific to each flow. */
+.mago-approval {
+  --mago-text-primary: #282834;
+  --mago-text-secondary: #646587;
+  --mago-border: #d0d4e6;
+  --mago-action: #434ce4;
+  width: 100%;
+  min-width: min(308px, 100%);
+  max-width: 400px;
+  margin-top: 4px;
+  overflow: hidden;
+  border: 1px solid var(--mago-border);
+  border-radius: 20px;
+  background: #fff;
+  color: var(--mago-text-primary);
+  font-feature-settings: "case" 1;
+  letter-spacing: 0;
+}
+
+.mago-approval-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 20px 0;
+}
+
+.mago-approval-thumbnail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--mago-border);
+  border-radius: 50%;
+}
+
+.mago-approval-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+}
+
+.mago-approval-content {
+  padding: 20px 20px 0;
+}
+
+.mago-approval-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  line-height: 18px;
+  overflow-wrap: anywhere;
+}
+
+.mago-approval-row:first-child { padding-top: 0; }
+.mago-approval-row:last-child { padding-bottom: 0; }
+.mago-approval-row + .mago-approval-row { border-top: 1px solid var(--mago-border); }
+.mago-approval-row dt { color: var(--mago-text-secondary); }
+.mago-approval-row dd { text-align: right; font-weight: 600; }
+
+.mago-approval-offer,
+.mago-approval-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mago-approval-actions { padding: 20px; }
+.mago-approval-legal { color: var(--mago-text-secondary); font-size: 12px; line-height: 16px; }
+.mago-approval-link { color: var(--mago-action); text-decoration: underline; font-weight: 600; }
+.mago-approval-consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+.mago-approval-checkbox { flex: none; width: 16px; height: 16px; accent-color: var(--mago-action); }
+
+.mago-approval-button {
+  width: 100%;
+  min-height: 40px;
+  padding: 2px 16px;
+  border-radius: 12px;
+  background: var(--mago-action);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.mago-approval-button:hover:enabled { background: #353db6; }
+.mago-approval-button:disabled { cursor: default; opacity: 0.6; }
+.mago-approval-button:focus-visible,
+.mago-approval-checkbox:focus-visible { outline: 2px solid var(--mago-action); outline-offset: 3px; }
