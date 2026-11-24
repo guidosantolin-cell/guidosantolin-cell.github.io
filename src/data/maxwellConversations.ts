@@ -1,4 +1,5 @@
 import { platinumFreeTrial } from './platinumFreeTrial'
+import { platinumUpgradeBau } from './platinumUpgradeBau'
 
 export type WidgetRow = { label: string; value: string }
 export type FooterSegment = { text: string; link?: boolean }
@@ -50,6 +51,7 @@ export type MaxwellConversationConfig = {
 }
 
 export const maxwellConversations = {
+  'platinum-upgrade-bau-mlb': platinumUpgradeBau,
   'platinum-meli-plus-mlb': {
     language: 'pt-BR',
     assistantName: 'MAGO',

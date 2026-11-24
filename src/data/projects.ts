@@ -107,6 +107,12 @@ export type Prototype = {
   interactive?: MaxwellConversationId
 }
 
+export type PrototypeGroup = {
+  title: string
+  prototypes?: Prototype[]
+  sections?: { title: string; prototypes: Prototype[] }[]
+}
+
 export type CaseStudy = {
   slug: string
   title: string
@@ -136,7 +142,7 @@ export type CaseStudy = {
   beforeAfter: BeforeAfter[]
   beforeAfterTitle?: string
   prototypes?: Prototype[]
-  prototypeGroups?: { title: string; prototypes: Prototype[] }[]
+  prototypeGroups?: PrototypeGroup[]
   outcome?: string
   outcomeVideo?: ExplorationVideo
   outcomeGroups?: { title: string; images: { src: string; caption?: string }[] }[]
@@ -241,21 +247,36 @@ export const projects: CaseStudy[] = [
       },
       {
         title: 'Tarjeta Platinum - only MLB',
-        prototypes: [
+        sections: [
           {
-            title: 'BAU',
-            description: 'Recorrido principal sin KYC6. Los campos entre llaves son datos variables del handoff.',
-            interactive: 'platinum-bau-mlb',
+            title: 'Flujo de adquisición',
+            prototypes: [
+              {
+                title: 'BAU',
+                description: 'Recorrido principal sin KYC6. Los campos entre llaves son datos variables del handoff.',
+                interactive: 'platinum-bau-mlb',
+              },
+              {
+                title: 'Free Trial',
+                description: 'Recorrido principal sin KYC6, con la opción de agregar Meli+ o continuar sin el beneficio.',
+                interactive: 'platinum-free-trial-mlb',
+              },
+              {
+                title: 'Meli+',
+                description: 'Recorrido principal sin KYC6 para quienes ya tienen Meli+, con sus beneficios en la oferta y el resumen.',
+                interactive: 'platinum-meli-plus-mlb',
+              },
+            ],
           },
           {
-            title: 'Free Trial',
-            description: 'Recorrido principal sin KYC6, con la opción de agregar Meli+ o continuar sin el beneficio.',
-            interactive: 'platinum-free-trial-mlb',
-          },
-          {
-            title: 'Meli+',
-            description: 'Recorrido principal sin KYC6 para quienes ya tienen Meli+, con sus beneficios en la oferta y el resumen.',
-            interactive: 'platinum-meli-plus-mlb',
+            title: 'Flujo upgrade',
+            prototypes: [
+              {
+                title: 'BAU',
+                description: 'Upgrade gratuito a Platinum. Recorrido principal sin KYC6, con confirmación de dirección y revisión del cambio.',
+                interactive: 'platinum-upgrade-bau-mlb',
+              },
+            ],
           },
         ],
       },

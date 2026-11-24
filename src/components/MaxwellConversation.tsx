@@ -45,7 +45,7 @@ function WidgetCard({
   declineCta?: string
 }) {
   const [accepted, setAccepted] = useState(false)
-  const footer = spec.requiresConsent ? (
+  const footer = spec.footer.length === 0 ? null : spec.requiresConsent ? (
     <label className="mago-approval-legal mago-approval-consent">
       <input
         type="checkbox"
