@@ -20,7 +20,7 @@ function Footer({ segments }: { segments: { text: string; link?: boolean }[] }) 
     <>
       {segments.map((segment, i) =>
         segment.link ? (
-          <span key={i} className="text-indigo-600 underline">
+          <span key={i} className="mago-approval-link">
             {segment.text}
           </span>
         ) : (
@@ -46,116 +46,120 @@ function WidgetCard({
 }) {
   const [accepted, setAccepted] = useState(false)
   const footer = spec.requiresConsent ? (
-    <label className="mt-3 flex cursor-pointer items-start gap-2 text-xs text-neutral-500">
+    <label className="mago-approval-legal mago-approval-consent">
       <input
         type="checkbox"
         checked={accepted}
         disabled={disabled}
         onChange={(event) => setAccepted(event.target.checked)}
-        className="mt-0.5 h-4 w-4 shrink-0 accent-indigo-600"
+        className="mago-approval-checkbox"
       />
       <span><Footer segments={spec.footer} /></span>
     </label>
   ) : (
-    <p className="mt-3 text-xs text-neutral-500"><Footer segments={spec.footer} /></p>
+    <p className="mago-approval-legal"><Footer segments={spec.footer} /></p>
   )
 
   if (spec.kind === 'promo') {
     return (
       <>
-      <div className={`mt-1 w-full rounded-2xl border border-neutral-200 bg-white shadow-md ${spec.features ? 'p-5' : 'p-4'}`}>
-        <div className="flex items-center gap-2">
-          {spec.badgeImage ? (
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-neutral-200">
-              <img src={spec.badgeImage} alt={spec.badge} />
+        <div className="mago-approval mago-approval-promo" data-widget-kind="promo">
+          <div className="mago-approval-header">
+            <span className="mago-approval-thumbnail">
+              <img src={spec.badgeImage ?? '/case-studies/mago-platinum/free-trial-assets/meli-plus.svg'} alt={spec.badge} />
             </span>
-          ) : (
-          <span className="inline-block shrink-0 rounded-full bg-rose-500 px-2.5 py-1 text-xs font-semibold text-white">
-            {spec.badge}
-          </span>
-          )}
-          <p className="text-base font-semibold text-neutral-900">{spec.title}</p>
-        </div>
-        {spec.body && <p className="mt-2 text-sm text-neutral-600">{spec.body}</p>}
-        {spec.features && (
-          <ul className="mt-5 space-y-3 text-sm text-neutral-800">
-            {spec.features.map((feature) => (
-              <li key={feature.title} className="flex items-start gap-2">
-                {feature.icon ? (
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center"><img src={feature.icon} alt="" /></span>
-                ) : <span className="w-5 shrink-0" aria-hidden />}
-                <div>
-                  <p className="font-semibold">{feature.title}</p>
-                  {feature.description && <p className="mt-0.5">{feature.description}</p>}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-        <div className="mt-3 flex items-center justify-between">
-          <p
-            className={`text-base font-semibold text-neutral-900 ${
-              spec.priceStrikethrough ? 'text-neutral-500 line-through decoration-neutral-600 decoration-2' : ''
-            }`}
-          >
-            {spec.price}
-            {spec.priceSuffix && (
-              <span className="text-sm font-normal text-neutral-500">{spec.priceSuffix}</span>
+            <h4 className="mago-approval-title">{spec.title}</h4>
+          </div>
+          <div className="mago-approval-content mago-approval-offer">
+            {spec.body && <p className="text-sm leading-[18px] text-[var(--mago-text-secondary)]">{spec.body}</p>}
+            {spec.features && (
+              <ul className="space-y-3 text-sm leading-[18px]">
+                {spec.features.map((feature) => (
+                  <li key={feature.title} className="flex items-start gap-2">
+                    {feature.icon ? (
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center"><img src={feature.icon} alt="" /></span>
+                    ) : <span className="w-5 shrink-0" aria-hidden />}
+                    <div>
+                      <p className="font-semibold">{feature.title}</p>
+                      {feature.description && <p className="mt-0.5">{feature.description}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             )}
-          </p>
-          {spec.banner && (
-            <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
-              {spec.banner}
-            </span>
-          )}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <p
+                className={`text-base font-semibold text-neutral-900 ${
+                  spec.priceStrikethrough ? 'text-neutral-500 line-through decoration-neutral-600 decoration-2' : ''
+                }`}
+              >
+                {spec.price}
+                {spec.priceSuffix && (
+                  <span className="text-sm font-normal text-neutral-500">{spec.priceSuffix}</span>
+                )}
+              </p>
+              {spec.banner && (
+                <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-medium text-emerald-700">
+                  {spec.banner}
+                </span>
+              )}
+            </div>
+            {spec.note && <p className="text-sm leading-[18px] text-[var(--mago-text-secondary)]">{spec.note}</p>}
+          </div>
+          <div className="mago-approval-actions">
+            {footer}
+            <button
+              type="button"
+              onClick={onClick}
+              disabled={disabled || (spec.requiresConsent && !accepted)}
+              className="mago-approval-button"
+            >
+              {spec.cta}
+            </button>
+          </div>
         </div>
-        {spec.note && <p className="mt-1 text-sm text-neutral-500">{spec.note}</p>}
-        {footer}
-        <button
-          onClick={onClick}
-          disabled={disabled || (spec.requiresConsent && !accepted)}
-          className="mt-4 w-full rounded-full bg-indigo-600 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-default disabled:opacity-60"
-        >
-          {spec.cta}
-        </button>
-      </div>
-      {onDecline && (
-        <button
-          type="button"
-          onClick={onDecline}
-          disabled={disabled}
-          className="mt-2 inline-flex w-fit items-center gap-1 rounded-full bg-neutral-100 px-2 py-1 text-sm font-semibold text-neutral-900 disabled:opacity-60"
-        >
-          {spec.declineIcon && <img src={spec.declineIcon} alt="" />}
-          {declineCta}
-        </button>
-      )}
+        {onDecline && (
+          <button
+            type="button"
+            onClick={onDecline}
+            disabled={disabled}
+            className="mt-2 inline-flex w-fit items-center gap-1 rounded-full bg-neutral-100 px-2 py-1 text-sm font-semibold text-neutral-900 disabled:opacity-60"
+          >
+            {spec.declineIcon && <img src={spec.declineIcon} alt="" />}
+            {declineCta}
+          </button>
+        )}
       </>
     )
   }
 
   return (
-    <div className="mt-1 w-full rounded-2xl border border-neutral-200 bg-white p-4 shadow-md">
-      <div className={`flex items-center justify-center rounded-full border border-neutral-200 ${spec.iconSrc ? 'h-12 w-12' : 'h-8 w-8'}`}>
-        {spec.iconSrc ? <img src={spec.iconSrc} alt="" /> : <span className="text-xs">💳</span>}
+    <div className="mago-approval" data-widget-kind="summary">
+      <div className="mago-approval-header">
+        <span className="mago-approval-thumbnail">
+          <img src={spec.iconSrc ?? '/case-studies/mago-platinum/free-trial-assets/card.svg'} alt="" />
+        </span>
+        <h4 className="mago-approval-title">{spec.title}</h4>
       </div>
-      <p className="mt-3 text-base font-semibold text-neutral-900">{spec.title}</p>
-      <dl className="mt-3 divide-y divide-neutral-100 text-sm">
+      <dl className="mago-approval-content mago-approval-details">
         {spec.rows.map((row) => (
-          <div key={row.label} className="flex items-center justify-between py-2">
-            <dt className="text-neutral-500">{row.label}</dt>
-            <dd className="font-medium text-neutral-900">{row.value}</dd>
+          <div key={row.label} className="mago-approval-row">
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
           </div>
         ))}
       </dl>
-      {footer}
-      <button
-        onClick={onClick}
-        disabled={disabled || (spec.requiresConsent && !accepted)}
-        className="mt-4 w-full rounded-full bg-indigo-600 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-default disabled:opacity-60"
-      >
-        {spec.cta}
-      </button>
+      <div className="mago-approval-actions">
+        {footer}
+        <button
+          type="button"
+          onClick={onClick}
+          disabled={disabled || (spec.requiresConsent && !accepted)}
+          className="mago-approval-button"
+        >
+          {spec.cta}
+        </button>
+      </div>
     </div>
   )
 }
