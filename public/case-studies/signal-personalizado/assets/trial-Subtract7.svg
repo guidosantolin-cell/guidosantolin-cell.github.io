@@ -1,0 +1,21 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="5.83546" height="8.81512" viewBox="0 0 5.83546 8.81512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Subtract" style="mix-blend-mode:multiply">
+<path d="M0.412613 8.81512L0.41261 6.32086H0L2.47955e-06 8.81512H0.412613Z" fill="url(#paint0_radial_0_2104)" fill-opacity="0.7"/>
+<path d="M3.71485 6.32086H3.89708C4.15351 6.33709 4.41047 6.29894 4.65112 6.20891C4.89177 6.11888 5.11067 5.979 5.29348 5.79844C5.47628 5.61788 5.61886 5.40072 5.71186 5.1612C5.80485 4.92168 5.84617 4.66521 5.8331 4.4086V4.40653C5.84617 4.14992 5.80485 3.89344 5.71186 3.65392C5.61886 3.4144 5.47628 3.19724 5.29348 3.01668C5.11067 2.83612 4.89177 2.69624 4.65112 2.60621C4.41047 2.51618 4.15351 2.47803 3.89708 2.49426H3.71486C3.89355 2.50557 4.07003 2.54318 4.23851 2.60621C4.47916 2.69624 4.69806 2.83612 4.88087 3.01668C5.06367 3.19724 5.20625 3.4144 5.29925 3.65392C5.39224 3.89344 5.43356 4.14992 5.42049 4.40653V4.4086C5.43356 4.66521 5.39224 4.92168 5.29925 5.1612C5.20625 5.40072 5.06367 5.61788 4.88087 5.79844C4.69806 5.979 4.47916 6.11888 4.23851 6.20891C4.07003 6.27195 3.89354 6.30955 3.71485 6.32086Z" fill="url(#paint1_radial_0_2104)" fill-opacity="0.7"/>
+<path d="M0.41261 2.49426L0.412613 0H2.47955e-06L0 2.49426H0.41261Z" fill="url(#paint2_radial_0_2104)" fill-opacity="0.7"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_0_2104" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(4.0968 4.40756) scale(2.5324 3.2243)">
+<stop offset="0.255" stop-color="#D17900"/>
+<stop offset="1" stop-color="#604622"/>
+</radialGradient>
+<radialGradient id="paint1_radial_0_2104" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(4.0968 4.40756) scale(2.5324 3.2243)">
+<stop offset="0.255" stop-color="#D17900"/>
+<stop offset="1" stop-color="#604622"/>
+</radialGradient>
+<radialGradient id="paint2_radial_0_2104" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(4.0968 4.40756) scale(2.5324 3.2243)">
+<stop offset="0.255" stop-color="#D17900"/>
+<stop offset="1" stop-color="#604622"/>
+</radialGradient>
+</defs>
+</svg>

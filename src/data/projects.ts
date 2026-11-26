@@ -124,7 +124,7 @@ export type CaseStudy = {
   tools: string[]
   accent: 'pink' | 'indigo' | 'yellow'
   coverImage?: string
-  coverComponent?: 'minicard-feedback' | 'hand-card'
+  coverComponent?: 'minicard-feedback' | 'hand-card' | 'signal-personalizado'
   coverCaption?: string
   team?: { role: string; name: string }[]
   challenge?: Challenge
@@ -143,6 +143,7 @@ export type CaseStudy = {
   beforeAfterTitle?: string
   prototypes?: Prototype[]
   prototypeGroups?: PrototypeGroup[]
+  signalPrototypes?: boolean
   outcome?: string
   outcomeVideo?: ExplorationVideo
   outcomeGroups?: { title: string; images: { src: string; caption?: string }[] }[]
@@ -169,6 +170,63 @@ export const accentClasses: Record<CaseStudy['accent'], { bg: string; text: stri
 const PLACEHOLDER = '[Completar con tu contenido]'
 
 export const projects: CaseStudy[] = [
+  {
+    slug: 'signal-personalizado',
+    title: 'Signal Personalizado',
+    subtitle: 'Un beneficio relevante, a lo largo de la adquisición',
+    product: 'Tarjeta de crédito / Mercado Pago',
+    countries: 'México (MLM) · Brasil (MLB) · Argentina (MLA) · Chile (MLC)',
+    period: 'Q3',
+    status: 'Entregado',
+    tools: ['Figma'],
+    accent: 'indigo',
+    coverComponent: 'signal-personalizado',
+    coverCaption: 'Beneficio personalizado en la minicard. Ejemplo de Mobile México para Mercado Pago.',
+    challenge: {
+      intro: [
+        'Se identificó que destacar una propuesta de valor personalizada, basada en las búsquedas de cada usuario en el marketplace, aumentaba su intención de adquirir la tarjeta de crédito.',
+        'A partir de este hallazgo, se propuso incorporar beneficios personalizados dentro del flujo de adquisición para presentar una oferta más relevante e incentivar la contratación.',
+      ],
+    },
+    customSections: [
+      {
+        title: 'Objetivo',
+        body: 'Incrementar la cantidad de usuarios que adquieren la tarjeta de crédito Mercado Pago mediante una propuesta de valor personalizada y relevante para sus intereses.',
+      },
+      {
+        title: 'Mi rol y colaboración',
+        body: 'Diseñé el componente para comunicar beneficios personalizados y definí la experiencia de usuario asociada. Elaboré una guía para los equipos de IT que unifica los criterios de redacción y documenta los requisitos técnicos de implementación. Trabajé de forma interdisciplinaria con los equipos involucrados en los distintos mercados y experiencias para acordar esos criterios.',
+      },
+      {
+        title: 'Decisiones principales',
+        items: [
+          'Definimos la ubicación del componente dentro de la experiencia.',
+          'Establecimos la jerarquía y el comportamiento de las propuestas de valor cuando había más de un beneficio disponible para una misma persona.',
+          'Intervenimos tres instancias: la minicard, el onboarding y la revisión y confirmación.',
+          'Para cada instancia, acordamos lineamientos de contenido, diseño y comportamiento, consolidados con las necesidades técnicas en un único documento de consulta.',
+        ],
+      },
+      {
+        title: 'Del beneficio central al detalle',
+        body: 'El documento maestro de contenido establece cómo presentar el beneficio de forma progresiva: primero su propuesta de valor central y, a medida que avanza el recorrido, la información complementaria que ayuda a comprenderla. El objetivo del guideline fue asegurar una implementación consistente entre equipos y reducir errores.',
+      },
+      {
+        title: 'Alcance de la entrega',
+        body: 'El handoff abarcó México, Brasil, Argentina y Chile, tanto para Mercado Pago como para Mercado Libre, en desktop y mobile. Contempló BAU, Free Trial, Meli+ y microtarjeta.',
+        note: 'Esta primera publicación presenta únicamente los ejemplos Mobile de México (MLM) para Mercado Pago: BAU, Free Trial y Meli+. Los otros mercados, plataformas y casos forman parte del alcance de la entrega, pero todavía no se incorporaron sus materiales a este caso.',
+      },
+      {
+        title: 'Aprendizajes y continuidad',
+        body: 'Profundicé mis conocimientos sobre diseño de componentes y sobre la definición y el manejo de assets mediante la consulta de distintas bibliotecas. El trabajo interdisciplinario me permitió unificar criterios entre múltiples equipos y consolidarlos en un guideline común.',
+        items: ['Después del handoff, continué como referente para consultas de contenido y generación de mensajes. Mi participación se amplió a nuevas instancias del proyecto, como el caso de negocio con Merch.'],
+      },
+    ],
+    contentExploration: [],
+    beforeAfter: [],
+    signalPrototypes: true,
+    outcome: 'Entregué el handoff de diseño y el documento maestro de contenido para orientar la implementación en los mercados, plataformas y casos contemplados. El resultado documentado corresponde a esos entregables: todavía no se incorporaron métricas posteriores a la implementación, por lo que el incremento en adquisición se presenta como objetivo del proyecto y no como un resultado medido.',
+    handoffLink: 'https://www.figma.com/design/NPF1L9jgOapXoNuM7OL50U/-All-sites--SIGNALS-Value-prop--HO-?node-id=24203-160813',
+  },
   {
     slug: 'flujo-adqui-tc-en-maxwell',
     title: 'Flujo conversacional MAGO',
