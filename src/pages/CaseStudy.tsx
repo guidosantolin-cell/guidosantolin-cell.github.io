@@ -12,6 +12,7 @@ import { maxwellConversations } from '../data/maxwellConversations'
 import { MinicardFeedbackCover } from '../components/MinicardFeedbackCover'
 import { HandCardCover } from '../components/HandCardCover'
 import { StaggerReveal } from '../components/StaggerReveal'
+import { SignalProjectCover, SignalPrototypeGallery } from '../components/SignalPrototype'
 
 export function CaseStudy() {
   const { slug } = useParams()
@@ -65,7 +66,9 @@ export function CaseStudy() {
       </div>
 
       <div className="mt-10">
-        {project.coverComponent === 'minicard-feedback' ? (
+        {project.coverComponent === 'signal-personalizado' ? (
+          <div className="overflow-hidden rounded-xl border border-neutral-100"><SignalProjectCover /></div>
+        ) : project.coverComponent === 'minicard-feedback' ? (
           <div className="overflow-hidden rounded-xl border border-neutral-100">
             <MinicardFeedbackCover />
           </div>
@@ -541,6 +544,8 @@ export function CaseStudy() {
           )}
         </div>
       ))}
+
+      {project.signalPrototypes && <SignalPrototypeGallery />}
 
       {(project.prototypes || project.prototypeGroups) && (
         <div className="mt-16">
