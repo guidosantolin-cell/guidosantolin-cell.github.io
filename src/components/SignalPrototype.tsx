@@ -40,37 +40,19 @@ export function SignalMiniCard({ onStart }: { onStart?: () => void }) {
 }
 
 export function SignalProjectCover({ compact = false }: { compact?: boolean }) {
-  const [paused, setPaused] = useState(false)
+  const [paused, setPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   return (
-    <div className={`signal-cover signal-cover-animated${paused ? ' signal-cover-paused' : ''}${compact ? ' signal-cover-compact' : ''}`} role="group" aria-label="Signal Personalizado: recorrido automático de minicard, onboarding y revisión">
+    <div className={`signal-cover signal-cover-live${compact ? ' signal-cover-compact' : ''}`} role="group" aria-label="Signal Personalizado: recorrido automático del prototipo mobile">
       <p>Signal Personalizado</p>
-      <div className="signal-cover-sequence" aria-hidden="true">
-        <div className="signal-cover-scene signal-cover-scene-entry"><SignalMiniCard /></div>
-        <div className="signal-cover-scene signal-cover-scene-onboarding">
-          <div className="signal-cover-onboarding">
-            <img src={`${assets}/card.png`} alt="" />
-            <strong>Hasta 50% OFF<br />en tenis Reebook</strong>
-            <span>Beneficio exclusivo lunes y jueves.</span>
-          </div>
-        </div>
-        <div className="signal-cover-scene signal-cover-scene-review">
-          <div className="signal-cover-review">
-            <strong>Tendrás $ 10,000 de límite en tu tarjeta</strong>
-            <div><Asset name="discount" /><p>Exclusivo para ti<b>Hasta $ 50,000 OFF en tenis Reebook en Martí este lunes</b></p></div>
-            <div><Asset name="present" /><p>Beneficios de la tarjeta<b>Sin anualidad · Hasta 24 meses sin intereses</b></p></div>
-            <span>Pedir tarjeta gratis</span>
-          </div>
-        </div>
-      </div>
-      <div className="signal-cover-timeline" aria-hidden="true">
-        <span>Minicard</span><span>Onboarding</span><span>Revisión y confirmación</span>
+      <div className="signal-cover-window" aria-hidden="true" inert>
+        <div className="signal-cover-device"><SignalMobileFlow variant={variants[0]} preview paused={paused} /></div>
       </div>
       {!compact && <button className="signal-cover-pause" type="button" onClick={() => setPaused(value => !value)}>{paused ? 'Reanudar animación' : 'Pausar animación'}</button>}
     </div>
   )
 }
 
-function SignalMobileFlow({ variant }: { variant: Variant }) {
+function SignalMobileFlow({ variant, preview = false, paused = false }: { variant: Variant; preview?: boolean; paused?: boolean }) {
   const [stage, setStage] = useState<Stage>('entry')
   const [playing, setPlaying] = useState(true)
   const [accepted, setAccepted] = useState(false)
@@ -87,11 +69,13 @@ function SignalMobileFlow({ variant }: { variant: Variant }) {
     if (sheet && dialog && !dialog.open) dialog.showModal()
     if (!sheet && dialog?.open) dialog.close()
   }, [sheet])
+  const autoPlaying = preview ? !paused : playing
   // Timers are scoped to the visible stage and cleared on pause, close or navigation.
   useEffect(() => {
-    if (!playing || sheet || stage === 'success') return
+    if (!autoPlaying || sheet) return
     const timers: ReturnType<typeof setTimeout>[] = []
     const after = (ms: number, action: () => void) => timers.push(setTimeout(action, ms))
+    if (stage === 'success' && preview) after(4000, () => { setStage('entry'); setAccepted(false); setTrial(false) })
     if (stage === 'entry') after(3000, () => setStage('onboarding'))
     if (stage === 'onboarding') after(5000, () => setStage('review'))
     if (stage === 'review') {
@@ -104,29 +88,30 @@ function SignalMobileFlow({ variant }: { variant: Variant }) {
       after(9500, () => setStage('success'))
     }
     return () => timers.forEach(clearTimeout)
-  }, [playing, sheet, stage, variant.id])
+  }, [autoPlaying, sheet, stage, variant.id, preview])
   useEffect(() => {
+    if (preview) return
     const pauseWhenHidden = () => { if (document.hidden) setPlaying(false) }
     document.addEventListener('visibilitychange', pauseWhenHidden)
     return () => document.removeEventListener('visibilitychange', pauseWhenHidden)
-  }, [])
+  }, [preview])
   const reset = () => {
     setPlaying(true); setStage('entry'); setAccepted(false); setTrial(false); setDay('1')
     setAddress(addresses[0]); setSheet(null); setNewAddress(null)
   }
   return (
     <>
-      <div className="signal-flow-tools">
+      {!preview && <div className="signal-flow-tools">
         <p aria-live="polite">{({ entry: '1. Minicard', onboarding: '2. Onboarding', review: '3. Revisión y confirmación', success: '4. Confirmación' })[stage]}</p>
         <div className="signal-playback-controls">
           {stage !== 'success' && <button type="button" onClick={() => setPlaying(value => !value)}>{playing ? 'Pausar' : 'Reproducir'}</button>}
           <button type="button" onClick={reset}>Reiniciar</button>
         </div>
-      </div>
+      </div>}
       <div className={`signal-mobile signal-mobile-${stage}`} data-signal-variant={variant.id} data-stage={stage} onPointerDownCapture={() => setPlaying(false)} onKeyDownCapture={() => setPlaying(false)}>
         {stage !== 'entry' && <div className="signal-status"><span>9:30</span><div><Asset name="wifi" /><Asset name="signal" /><Asset name="battery" /></div></div>}
         <div className="signal-screen-scroll" ref={screenRef}>
-          {stage === 'entry' && <div className="signal-entry"><SignalMiniCard onStart={() => setStage('onboarding')} /></div>}
+          {stage === 'entry' && <div className="signal-entry"><SignalMiniCard onStart={preview ? undefined : () => setStage('onboarding')} /></div>}
           {stage === 'onboarding' && (
             <div className="signal-onboarding">
               <button type="button" className="signal-icon-button signal-skip" aria-label="Omitir presentación" onClick={() => setStage('review')}><Asset name="close" /></button>
@@ -156,8 +141,8 @@ function SignalMobileFlow({ variant }: { variant: Variant }) {
         </div>
         {stage !== 'entry' && <div className="signal-home-indicator" />}
       </div>
-      <p className="signal-playback-status" role="status">{stage === 'success' ? 'Recorrido finalizado. Podés reiniciarlo.' : playing ? 'Reproducción automática · Simulación' : 'En pausa · Podés explorar o reanudar'}</p>
-      {stage === 'onboarding' && <button type="button" className="signal-external-next" onClick={() => { setPlaying(false); setStage('review') }}>Avanzar a la revisión</button>}
+      {!preview && <p className="signal-playback-status" role="status">{stage === 'success' ? 'Recorrido finalizado. Podés reiniciarlo.' : playing ? 'Reproducción automática · Simulación' : 'En pausa · Podés explorar o reanudar'}</p>}
+      {!preview && stage === 'onboarding' && <button type="button" className="signal-external-next" onClick={() => { setPlaying(false); setStage('review') }}>Avanzar a la revisión</button>}
       <dialog ref={sheetRef} className="signal-sheet" aria-label={sheet === 'date' ? 'Elige la fecha de pago' : '¿Dónde quieres recibir tu tarjeta?'} onCancel={e => { e.stopPropagation(); setSheet(null) }}>
         <div className="signal-sheet-handle" />
         <h4>{sheet === 'date' ? 'Elige la fecha de pago' : '¿Dónde quieres recibir tu tarjeta?'}</h4>
