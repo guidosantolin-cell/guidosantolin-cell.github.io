@@ -32,7 +32,7 @@ export function SignalMiniCard({ onStart }: { onStart?: () => void }) {
         <div className="signal-mini-footer">
           <Asset name="benefits" />
           <p><strong>Hasta 50% OFF</strong> en tenis <strong>Reebok</strong></p>
-          {onStart ? <button type="button" onClick={onStart}>Pedir tarjeta</button> : <span className="signal-mini-action">Pedir tarjeta</span>}
+          {onStart ? <button type="button" data-demo-target="request" onClick={onStart}>Pedir tarjeta</button> : <span className="signal-mini-action" data-demo-target="request">Pedir tarjeta</span>}
         </div>
       </div>
     </div>
@@ -61,6 +61,8 @@ function SignalMobileFlow({ variant, preview = false, paused = false }: { varian
   const [address, setAddress] = useState(addresses[0])
   const [sheet, setSheet] = useState<'date' | 'address' | null>(null)
   const [newAddress, setNewAddress] = useState<string | null>(null)
+  const [cursor, setCursor] = useState<{ x: number; y: number; click: boolean } | null>(null)
+  const phoneRef = useRef<HTMLDivElement>(null)
   const sheetRef = useRef<HTMLDialogElement>(null)
   const screenRef = useRef<HTMLDivElement>(null)
   useEffect(() => { screenRef.current?.scrollTo({ top: 0 }) }, [stage])
@@ -75,17 +77,33 @@ function SignalMobileFlow({ variant, preview = false, paused = false }: { varian
     if (!autoPlaying || sheet) return
     const timers: ReturnType<typeof setTimeout>[] = []
     const after = (ms: number, action: () => void) => timers.push(setTimeout(action, ms))
+    const pointAt = (target: string, click = false) => {
+      const phone = phoneRef.current
+      const control = phone?.querySelector<HTMLElement>(`[data-demo-target="${target}"]`)
+      if (!phone || !control) return
+      const frame = phone.getBoundingClientRect()
+      const rect = control.getBoundingClientRect()
+      const scale = frame.width / phone.offsetWidth
+      setCursor({ x: (rect.left + rect.width / 2 - frame.left) / scale, y: (rect.top + rect.height / 2 - frame.top) / scale, click })
+    }
     if (stage === 'success' && preview) after(4000, () => { setStage('entry'); setAccepted(false); setTrial(false) })
-    if (stage === 'entry') after(3000, () => setStage('onboarding'))
+    if (stage === 'entry') {
+      after(300, () => pointAt('request'))
+      after(2200, () => pointAt('request', true))
+      after(2900, () => { setCursor(null); setStage('onboarding') })
+    }
     if (stage === 'onboarding') after(5000, () => setStage('review'))
     if (stage === 'review') {
-      after(2500, () => screenRef.current?.scrollTo({ top: 240, behavior: 'smooth' }))
-      if (variant.id === 'trial') after(4500, () => setTrial(true))
-      after(6500, () => {
-        setAccepted(true)
-        screenRef.current?.scrollTo({ top: screenRef.current.scrollHeight, behavior: 'smooth' })
-      })
-      after(9500, () => setStage('success'))
+      after(1800, () => screenRef.current?.scrollTo({ top: screenRef.current.scrollHeight, behavior: 'smooth' }))
+      if (variant.id === 'trial') {
+        after(3000, () => pointAt('trial'))
+        after(4200, () => { pointAt('trial', true); setTrial(true) })
+      }
+      after(variant.id === 'trial' ? 5000 : 3000, () => pointAt('terms'))
+      after(variant.id === 'trial' ? 6200 : 4200, () => { pointAt('terms', true); setAccepted(true) })
+      after(variant.id === 'trial' ? 7200 : 5200, () => pointAt('submit'))
+      after(variant.id === 'trial' ? 8400 : 6400, () => pointAt('submit', true))
+      after(variant.id === 'trial' ? 9100 : 7100, () => { setCursor(null); setStage('success') })
     }
     return () => timers.forEach(clearTimeout)
   }, [autoPlaying, sheet, stage, variant.id, preview])
@@ -96,7 +114,7 @@ function SignalMobileFlow({ variant, preview = false, paused = false }: { varian
     return () => document.removeEventListener('visibilitychange', pauseWhenHidden)
   }, [preview])
   const reset = () => {
-    setPlaying(true); setStage('entry'); setAccepted(false); setTrial(false); setDay('1')
+    setCursor(null); setPlaying(true); setStage('entry'); setAccepted(false); setTrial(false); setDay('1')
     setAddress(addresses[0]); setSheet(null); setNewAddress(null)
   }
   return (
@@ -108,7 +126,7 @@ function SignalMobileFlow({ variant, preview = false, paused = false }: { varian
           <button type="button" onClick={reset}>Reiniciar</button>
         </div>
       </div>}
-      <div className={`signal-mobile signal-mobile-${stage}`} data-signal-variant={variant.id} data-stage={stage} onPointerDownCapture={() => setPlaying(false)} onKeyDownCapture={() => setPlaying(false)}>
+      <div className={`signal-mobile signal-mobile-${stage}`} ref={phoneRef} data-demo-playing={autoPlaying} data-signal-variant={variant.id} data-stage={stage} onPointerDownCapture={() => setPlaying(false)} onKeyDownCapture={() => setPlaying(false)}>
         {stage !== 'entry' && <div className="signal-status"><span>9:30</span><div><Asset name="wifi" /><Asset name="signal" /><Asset name="battery" /></div></div>}
         <div className="signal-screen-scroll" ref={screenRef}>
           {stage === 'entry' && <div className="signal-entry"><SignalMiniCard onStart={preview ? undefined : () => setStage('onboarding')} /></div>}
@@ -130,16 +148,20 @@ function SignalMobileFlow({ variant, preview = false, paused = false }: { varian
                 <div className="signal-detail signal-detail-edit"><Asset name="calendar" /><div><p>Fecha de vencimiento</p><strong>Día {day} de cada mes</strong></div><button type="button" onClick={() => setSheet('date')} aria-label="Modificar fecha de vencimiento">Modificar</button></div>
                 <div className="signal-detail signal-detail-edit"><Asset name="shipping" /><div><p>Envío de tarjeta física</p><strong className="signal-address" title={address}>{address}</strong></div><button type="button" onClick={() => setSheet('address')} aria-label="Modificar dirección de envío">Modificar</button></div>
               </div>
-              {variant.id === 'trial' && <label className="signal-trial"><SignalTrialIcon /><div><strong>Ganar hasta {'{n}'}% de cashback con Meli+ gratis</strong><p>{'{n}'} {'{mes/meses}'} de Meli+ gratis!<br />Después, $ {'{meli_price}'}/mes.<br />Cancela cuando quieras.</p></div><input type="checkbox" role="switch" aria-label="Agregar Meli+ gratis" checked={trial} onChange={e => setTrial(e.target.checked)} /></label>}
+              {variant.id === 'trial' && <label className="signal-trial"><SignalTrialIcon /><div><strong>Ganar hasta {'{n}'}% de cashback con Meli+ gratis</strong><p>{'{n}'} {'{mes/meses}'} de Meli+ gratis!<br />Después, $ {'{meli_price}'}/mes.<br />Cancela cuando quieras.</p></div><input data-demo-target="trial" type="checkbox" role="switch" aria-label="Agregar Meli+ gratis" checked={trial} onChange={e => setTrial(e.target.checked)} /></label>}
               <div className="signal-review-actions">
-                <label className="signal-legal"><input type="checkbox" checked={accepted} onChange={e => setAccepted(e.target.checked)} /><span>{variant.id === 'trial' ? <>Al pedir, acepto los <span className="signal-legal-link">Términos y Condiciones</span> y la <span className="signal-legal-link">Carátula</span>.</> : <>Acepto los <span className="signal-legal-link">Términos y Condiciones</span> y la <span className="signal-legal-link">Carátula</span>. Autorizo a Mercado Lending, S.A. de C.V. a consultar mis antecedentes crediticios. <span className="signal-legal-link">Revisar autorización</span>.</>}</span></label>
-                <button type="button" className="signal-primary" disabled={!accepted} onClick={() => setStage('success')}>Pedir tarjeta gratis</button>
+                <label className="signal-legal"><input data-demo-target="terms" type="checkbox" checked={accepted} onChange={e => setAccepted(e.target.checked)} /><span>{variant.id === 'trial' ? <>Al pedir, acepto los <span className="signal-legal-link">Términos y Condiciones</span> y la <span className="signal-legal-link">Carátula</span>.</> : <>Acepto los <span className="signal-legal-link">Términos y Condiciones</span> y la <span className="signal-legal-link">Carátula</span>. Autorizo a Mercado Lending, S.A. de C.V. a consultar mis antecedentes crediticios. <span className="signal-legal-link">Revisar autorización</span>.</>}</span></label>
+                <button type="button" className="signal-primary" data-demo-target="submit" disabled={!accepted} onClick={() => setStage('success')}>Pedir tarjeta gratis</button>
               </div>
             </div>
           )}
           {stage === 'success' && <div className="signal-success" role="status"><h4>¡Listo! Ya tienes tu tarjeta de crédito</h4><p>Usa tu tarjeta digital mientras te entregamos tu tarjeta física.</p>{variant.id === 'trial' && trial && <p className="signal-success-trial">Meli+ agregado a tu tarjeta.</p>}</div>}
         </div>
         {stage !== 'entry' && <div className="signal-home-indicator" />}
+        {autoPlaying && cursor && <div className={`signal-demo-cursor${cursor.click ? ' signal-demo-click' : ''}`} style={{ left: cursor.x, top: cursor.y }} aria-hidden="true">
+          <span className="signal-demo-ripple" />
+          <svg width="28" height="34" viewBox="0 0 28 34" fill="none"><path d="M3 2L24 20L14 21L10 31L3 2Z" fill="white" stroke="#17172b" strokeWidth="2" strokeLinejoin="round" /></svg>
+        </div>}
       </div>
       {!preview && <p className="signal-playback-status" role="status">{stage === 'success' ? 'Recorrido finalizado. Podés reiniciarlo.' : playing ? 'Reproducción automática · Simulación' : 'En pausa · Podés explorar o reanudar'}</p>}
       {!preview && stage === 'onboarding' && <button type="button" className="signal-external-next" onClick={() => { setPlaying(false); setStage('review') }}>Avanzar a la revisión</button>}

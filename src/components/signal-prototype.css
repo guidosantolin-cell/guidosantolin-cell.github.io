@@ -105,3 +105,12 @@
 .signal-cover-compact { --signal-cover-scale: .34; padding: 8px; gap: 0; }
 .signal-cover-compact>p:first-child { display: none; }
 @media(min-width:640px) and (max-width:1023px), (max-width:390px) { .signal-cover-compact { --signal-cover-scale: .24; } }
+
+.signal-demo-cursor { position: absolute; z-index: 10; width: 28px; height: 34px; pointer-events: none; transition: left .8s ease-in-out, top .8s ease-in-out; filter: drop-shadow(0 2px 3px #0005); }
+.signal-demo-cursor svg { position: relative; display: block; }
+.signal-demo-ripple { position: absolute; width: 44px; height: 44px; top: -19px; left: -19px; border: 3px solid #96a7ff; background: #617dff44; border-radius: 50%; opacity: 0; }
+.signal-demo-click .signal-demo-ripple { animation: signal-demo-click .65s ease-out forwards; }
+.signal-demo-click svg { animation: signal-demo-press .45s ease-out; transform-origin: 3px 2px; }
+@keyframes signal-demo-click { 0% { opacity: 1; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.4); } }
+@keyframes signal-demo-press { 0%,100% { transform: scale(1); } 45% { transform: scale(.8); } }
+@media(prefers-reduced-motion:reduce) { .signal-demo-cursor { transition: none; } .signal-demo-click .signal-demo-ripple,.signal-demo-click svg { animation: none; } }
