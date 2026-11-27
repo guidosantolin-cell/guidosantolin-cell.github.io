@@ -30,7 +30,9 @@
 .signal-dialog-header h3 { font-size: 13px; font-weight: 600; }
 .signal-dialog-header button,.signal-flow-tools button { color: #434ce4; cursor: pointer; font-size: 12px; font-weight: 600; }
 .signal-flow-tools { font-size: 12px; padding-block: 10px; }
-.signal-mobile { position: relative; isolation: isolate; display: flex; flex-direction: column; width: 360px; max-width: 100%; height: min(800px,calc(100dvh - 120px)); min-height: 320px; margin: 0 auto; background: #3d3e47; color: #fff; color-scheme: dark; font-family: Inter,sans-serif; font-size: 16px; line-height: 20px; }
+.signal-playback-controls { display: flex; gap: 12px; flex: none; }
+.signal-playback-status { padding: 8px 16px; color: #646587; font-size: 11px; line-height: 16px; text-align: center; }
+.signal-mobile { position: relative; isolation: isolate; display: flex; flex-direction: column; width: 360px; max-width: 100%; height: min(800px,calc(100dvh - 154px)); min-height: 320px; margin: 0 auto; background: #3d3e47; color: #fff; color-scheme: dark; font-family: Inter,sans-serif; font-size: 16px; line-height: 20px; }
 .signal-mobile-entry { background: #fff; color: #282834; }
 .signal-screen-scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #8788ab transparent; }
 .signal-status { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; color: #dedfed; font-size: 14px; line-height: 20px; }

@@ -51,6 +51,7 @@ export function SignalProjectCover() {
 
 function SignalMobileFlow({ variant }: { variant: Variant }) {
   const [stage, setStage] = useState<Stage>('entry')
+  const [playing, setPlaying] = useState(true)
   const [accepted, setAccepted] = useState(false)
   const [trial, setTrial] = useState(false)
   const [day, setDay] = useState('1')
@@ -65,17 +66,43 @@ function SignalMobileFlow({ variant }: { variant: Variant }) {
     if (sheet && dialog && !dialog.open) dialog.showModal()
     if (!sheet && dialog?.open) dialog.close()
   }, [sheet])
+  // Timers are scoped to the visible stage and cleared on pause, close or navigation.
+  useEffect(() => {
+    if (!playing || sheet || stage === 'success') return
+    const timers: ReturnType<typeof setTimeout>[] = []
+    const after = (ms: number, action: () => void) => timers.push(setTimeout(action, ms))
+    if (stage === 'entry') after(3000, () => setStage('onboarding'))
+    if (stage === 'onboarding') after(5000, () => setStage('review'))
+    if (stage === 'review') {
+      after(2500, () => screenRef.current?.scrollTo({ top: 240, behavior: 'smooth' }))
+      if (variant.id === 'trial') after(4500, () => setTrial(true))
+      after(6500, () => {
+        setAccepted(true)
+        screenRef.current?.scrollTo({ top: screenRef.current.scrollHeight, behavior: 'smooth' })
+      })
+      after(9500, () => setStage('success'))
+    }
+    return () => timers.forEach(clearTimeout)
+  }, [playing, sheet, stage, variant.id])
+  useEffect(() => {
+    const pauseWhenHidden = () => { if (document.hidden) setPlaying(false) }
+    document.addEventListener('visibilitychange', pauseWhenHidden)
+    return () => document.removeEventListener('visibilitychange', pauseWhenHidden)
+  }, [])
   const reset = () => {
-    setStage('entry'); setAccepted(false); setTrial(false); setDay('1')
+    setPlaying(true); setStage('entry'); setAccepted(false); setTrial(false); setDay('1')
     setAddress(addresses[0]); setSheet(null); setNewAddress(null)
   }
   return (
     <>
       <div className="signal-flow-tools">
         <p aria-live="polite">{({ entry: '1. Minicard', onboarding: '2. Onboarding', review: '3. Revisión y confirmación', success: '4. Confirmación' })[stage]}</p>
-        <button type="button" onClick={reset}>Reiniciar</button>
+        <div className="signal-playback-controls">
+          {stage !== 'success' && <button type="button" onClick={() => setPlaying(value => !value)}>{playing ? 'Pausar' : 'Reproducir'}</button>}
+          <button type="button" onClick={reset}>Reiniciar</button>
+        </div>
       </div>
-      <div className={`signal-mobile signal-mobile-${stage}`} data-signal-variant={variant.id} data-stage={stage}>
+      <div className={`signal-mobile signal-mobile-${stage}`} data-signal-variant={variant.id} data-stage={stage} onPointerDownCapture={() => setPlaying(false)} onKeyDownCapture={() => setPlaying(false)}>
         {stage !== 'entry' && <div className="signal-status"><span>9:30</span><div><Asset name="wifi" /><Asset name="signal" /><Asset name="battery" /></div></div>}
         <div className="signal-screen-scroll" ref={screenRef}>
           {stage === 'entry' && <div className="signal-entry"><SignalMiniCard onStart={() => setStage('onboarding')} /></div>}
@@ -108,7 +135,8 @@ function SignalMobileFlow({ variant }: { variant: Variant }) {
         </div>
         {stage !== 'entry' && <div className="signal-home-indicator" />}
       </div>
-      {stage === 'onboarding' && <button type="button" className="signal-external-next" onClick={() => setStage('review')}>Avanzar a la revisión</button>}
+      <p className="signal-playback-status" role="status">{stage === 'success' ? 'Recorrido finalizado. Podés reiniciarlo.' : playing ? 'Reproducción automática · Simulación' : 'En pausa · Podés explorar o reanudar'}</p>
+      {stage === 'onboarding' && <button type="button" className="signal-external-next" onClick={() => { setPlaying(false); setStage('review') }}>Avanzar a la revisión</button>}
       <dialog ref={sheetRef} className="signal-sheet" aria-label={sheet === 'date' ? 'Elige la fecha de pago' : '¿Dónde quieres recibir tu tarjeta?'} onCancel={e => { e.stopPropagation(); setSheet(null) }}>
         <div className="signal-sheet-handle" />
         <h4>{sheet === 'date' ? 'Elige la fecha de pago' : '¿Dónde quieres recibir tu tarjeta?'}</h4>
@@ -131,16 +159,16 @@ export function SignalPrototypeGallery() {
     <section className="mt-16" aria-labelledby="signal-prototypes-title">
       <h2 id="signal-prototypes-title" className="text-2xl font-semibold text-neutral-900">Prototipos</h2>
       <h3 className="mt-5 text-lg font-semibold text-neutral-900">Mobile · México (MLM) · Mercado Pago</h3>
-      <p className="mt-2 text-sm text-neutral-600">Explorá cómo el beneficio personalizado acompaña el recorrido desde la minicard hasta la confirmación. Los datos y beneficios son ejemplos del handoff; estas simulaciones no solicitan tarjetas ni activan suscripciones.</p>
+      <p className="mt-2 text-sm text-neutral-600">Mirá el recorrido automático o pausalo para explorar cómo el beneficio personalizado acompaña el recorrido desde la minicard hasta la confirmación. Los datos y beneficios son ejemplos del handoff; estas simulaciones no solicitan tarjetas ni activan suscripciones.</p>
       <div className="signal-gallery">
         {variants.map(variant => <article key={variant.id}>
           <h4>{variant.title}</h4><p>{variant.description}</p>
           <div className="signal-gallery-preview"><SignalMiniCard /></div>
-          <button type="button" className="signal-open-prototype" onClick={() => setActive(variant)}>Explorar {variant.title}</button>
+          <button type="button" className="signal-open-prototype" onClick={() => setActive(variant)}>Reproducir {variant.title}</button>
           <div className="signal-source-links"><a href={`${figma}?node-id=${variant.handoff}`} target="_blank" rel="noreferrer">Handoff ↗</a><a href={`${figma}?node-id=${variant.prototype}`} target="_blank" rel="noreferrer">Ejemplo en Figma ↗</a></div>
         </article>)}
       </div>
-      <p className="mt-4 text-xs text-neutral-500">Versión navegable de los ejemplos originales. Consultá Figma para ver las animaciones del onboarding.</p>
+      <p className="mt-4 text-xs text-neutral-500">Reproducción automática con opción de pausa y navegación manual. Consultá Figma para ver las animaciones del onboarding.</p>
       <dialog ref={dialogRef} className="signal-proto-dialog" aria-label={`Prototipo Signal Personalizado ${active?.title ?? ''}`} onCancel={() => setActive(null)} onClick={e => { if (e.target === e.currentTarget) setActive(null) }}>
         <div className="signal-dialog-header"><h3>{active?.title} · MLM · Mercado Pago</h3><button type="button" onClick={() => setActive(null)}>Cerrar</button></div>
         {active && <SignalMobileFlow key={active.id} variant={active} />}
