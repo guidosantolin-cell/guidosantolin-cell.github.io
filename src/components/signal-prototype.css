@@ -93,3 +93,42 @@
 .signal-mobile button:focus-visible,.signal-gallery button:focus-visible,.signal-proto-dialog button:focus-visible,.signal-sheet button:focus-visible,.signal-mobile input:focus-visible { outline: 2px solid #8da1ff; outline-offset: 3px; }
 @media(max-width:639px) { .signal-gallery { grid-template-columns: 1fr; } .signal-gallery article>p { min-height: 0; } .signal-gallery-preview { height: 200px; } .signal-gallery-preview .signal-mini { transform: translateX(-50%) scale(.85); } }
 @media(prefers-reduced-motion:reduce) { .signal-trial input::after { transition: none; } }
+
+.signal-cover-animated { gap: 20px; }
+.signal-cover-sequence { position: relative; width: 328px; max-width: 100%; height: 238px; overflow: hidden; }
+.signal-cover-scene { position: absolute; inset: 0; opacity: 0; pointer-events: none; animation: signal-cover-scenes 15s infinite; }
+.signal-cover-scene-entry { display: flex; align-items: center; opacity: 1; }
+.signal-cover-scene-onboarding { animation-delay: -10s; }
+.signal-cover-scene-review { animation-delay: -5s; }
+.signal-cover-onboarding { height: 100%; border-radius: 20px; background: radial-gradient(ellipse at 50% 30%,#29364a,#080e16 85%); color: white; display: flex; align-items: center; flex-direction: column; justify-content: center; text-align: center; gap: 12px; }
+.signal-cover-onboarding>img { width: 72px; height: 95px; object-fit: cover; transform: rotate(-8deg); }
+.signal-cover-onboarding>strong { font-size: 22px; line-height: 26px; }
+.signal-cover-onboarding>span { font-size: 11px; }
+.signal-cover-review { height: 100%; border-radius: 20px; background: #3d3e47; color: white; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.signal-cover-review>strong { font-size: 19px; line-height: 23px; }
+.signal-cover-review>div { display: flex; align-items: flex-start; gap: 10px; }
+.signal-cover-review>div>img { width: 18px; filter: invert(1); }
+.signal-cover-review p { font-size: 10px; line-height: 14px; }
+.signal-cover-review b { display: block; font-size: 12px; line-height: 16px; font-weight: 600; }
+.signal-cover-review>span { margin-top: auto; background: #434ce4; border-radius: 8px; text-align: center; padding: 9px; font-size: 11px; font-weight: 600; }
+.signal-cover-timeline { display: flex; width: 328px; max-width: 100%; gap: 8px; color: #646587; }
+.signal-cover-timeline>span { position: relative; flex: 1; padding-top: 10px; font-size: 10px; line-height: 14px; text-align: center; }
+.signal-cover-timeline>span::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; border-radius: 3px; background: #d0d4e6; }
+.signal-cover-timeline>span::after { content: ''; position: absolute; inset: 0 0 auto; height: 3px; border-radius: 3px; background: #434ce4; transform-origin: left; animation: signal-cover-progress 15s infinite; }
+.signal-cover-timeline>span:nth-child(2)::after { animation-delay: -10s; }
+.signal-cover-timeline>span:nth-child(3)::after { animation-delay: -5s; }
+.signal-cover-pause { color: #434ce4; font-size: 11px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.signal-cover-pause:focus-visible { outline: 2px solid #434ce4; outline-offset: 4px; }
+.signal-cover-paused .signal-cover-scene,.signal-cover-paused .signal-cover-timeline>span::after,.signal-cover-compact:hover .signal-cover-scene,.signal-cover-compact:hover .signal-cover-timeline>span::after { animation-play-state: paused; }
+@keyframes signal-cover-scenes { 0%,30% { opacity: 1; transform: translateY(0); } 33.333%,97% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes signal-cover-progress { 0% { transform: scaleX(0); opacity: 1; } 30% { transform: scaleX(1); opacity: 1; } 33.333%,100% { transform: scaleX(0); opacity: 0; } }
+@media(prefers-reduced-motion:reduce) { .signal-cover-scene,.signal-cover-timeline>span::after { animation: none; } .signal-cover-scene-entry { opacity: 1; } .signal-cover-pause { display: none; } }
+.signal-cover-review { padding: 16px; gap: 10px; }
+.signal-cover-compact { padding: 16px; gap: 12px; }
+@media(min-width:640px) and (max-width:1023px), (max-width:390px) {
+  .signal-cover-compact .signal-cover-sequence { width: 236px; height: 172px; }
+  .signal-cover-compact .signal-cover-scene>* { width: 328px; height: 238px; transform: scale(.72); transform-origin: top left; }
+  .signal-cover-compact .signal-cover-scene-entry { align-items: flex-start; }
+  .signal-cover-compact .signal-cover-timeline { width: 236px; }
+  .signal-cover-compact>p:first-child { font-size: 10px; }
+}

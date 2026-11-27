@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: CaseStudy }) {
     >
       <div className={`aspect-[4/3] overflow-hidden ${accent.bg}`}>
         {project.coverComponent === 'signal-personalizado' ? (
-          <SignalProjectCover />
+          <SignalProjectCover compact />
         ) : project.coverComponent === 'minicard-feedback' ? (
           <MinicardFeedbackCover />
         ) : project.coverComponent === 'hand-card' ? (
