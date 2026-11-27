@@ -39,12 +39,33 @@ export function SignalMiniCard({ onStart }: { onStart?: () => void }) {
   )
 }
 
-export function SignalProjectCover() {
+export function SignalProjectCover({ compact = false }: { compact?: boolean }) {
+  const [paused, setPaused] = useState(false)
   return (
-    <div className="signal-cover" aria-label="Signal Personalizado: el beneficio acompaña la adquisición">
+    <div className={`signal-cover signal-cover-animated${paused ? ' signal-cover-paused' : ''}${compact ? ' signal-cover-compact' : ''}`} role="group" aria-label="Signal Personalizado: recorrido automático de minicard, onboarding y revisión">
       <p>Signal Personalizado</p>
-      <div className="signal-cover-card"><SignalMiniCard /></div>
-      <p className="signal-cover-caption">Minicard · Onboarding · Revisión y confirmación</p>
+      <div className="signal-cover-sequence" aria-hidden="true">
+        <div className="signal-cover-scene signal-cover-scene-entry"><SignalMiniCard /></div>
+        <div className="signal-cover-scene signal-cover-scene-onboarding">
+          <div className="signal-cover-onboarding">
+            <img src={`${assets}/card.png`} alt="" />
+            <strong>Hasta 50% OFF<br />en tenis Reebook</strong>
+            <span>Beneficio exclusivo lunes y jueves.</span>
+          </div>
+        </div>
+        <div className="signal-cover-scene signal-cover-scene-review">
+          <div className="signal-cover-review">
+            <strong>Tendrás $ 10,000 de límite en tu tarjeta</strong>
+            <div><Asset name="discount" /><p>Exclusivo para ti<b>Hasta $ 50,000 OFF en tenis Reebook en Martí este lunes</b></p></div>
+            <div><Asset name="present" /><p>Beneficios de la tarjeta<b>Sin anualidad · Hasta 24 meses sin intereses</b></p></div>
+            <span>Pedir tarjeta gratis</span>
+          </div>
+        </div>
+      </div>
+      <div className="signal-cover-timeline" aria-hidden="true">
+        <span>Minicard</span><span>Onboarding</span><span>Revisión y confirmación</span>
+      </div>
+      {!compact && <button className="signal-cover-pause" type="button" onClick={() => setPaused(value => !value)}>{paused ? 'Reanudar animación' : 'Pausar animación'}</button>}
     </div>
   )
 }
